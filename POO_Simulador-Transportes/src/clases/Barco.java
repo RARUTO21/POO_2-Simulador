@@ -1,26 +1,17 @@
 package clases;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Barco extends Vehiculo {
 
     /**
      * Default constructor
      */
     public Barco() {
+        super(30,"BRC");
     }
-
     
-
-    /**
-     * @param int cantKm 
-     * @return
-     */
+    @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
-        // TODO implement here
+
         return 0.0d;
     }
 

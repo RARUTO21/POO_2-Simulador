@@ -12,13 +12,14 @@ public class Carro extends Vehiculo {
      */
     
     public Carro() {
-        // TODO implement here
+        super(40,"CAR");
     }
 
     /**
      * @param  cantKm 
      * @return
      */
+    @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
         // TODO implement here
         return 0.0d;
