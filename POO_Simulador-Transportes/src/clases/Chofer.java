@@ -8,7 +8,17 @@ public class Chofer {
     private ArrayList<Boolean> licencias;
     
     public Chofer(String nombre, int indiceLicencia) {
-        
+        licencias = new ArrayList();
+        for (int i = 0; i < 6 ; i++){
+            if (i == indiceLicencia){
+                 licencias.add(true);
+
+            }else{
+                 licencias.add(false);
+            }
+            
+        }
+        this.nombre = nombre;        
     }
     
     public void setNombre(String nombre) {
@@ -22,7 +32,7 @@ public class Chofer {
 
   
     public void agregarLicencia(int indiceLicencia) {
-        licencias.add(indiceLicencia,true);
+        licencias.set(indiceLicencia,true);
     }
 
     
