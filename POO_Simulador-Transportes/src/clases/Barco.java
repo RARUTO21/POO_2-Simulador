@@ -12,7 +12,7 @@ public class Barco extends Vehiculo {
     @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
 
-        return 0.0d;
+        return cantKm*9.06;
     }
 
 }

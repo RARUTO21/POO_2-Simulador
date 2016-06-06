@@ -12,7 +12,7 @@ public class Helicoptero extends Vehiculo {
 
     @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
-        return 0.0d;
+        return cantKm * 6.64;
     }
 
 }

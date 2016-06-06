@@ -9,14 +9,10 @@ public class Avion extends Vehiculo {
         super(5,"AVN");
     }
 
-    /**
-     * @param cantKm
-     * @return
-     */
     @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
         // TODO implement here
-        return 0.0d;
+        return cantKm*12.34;
     }
 
 }

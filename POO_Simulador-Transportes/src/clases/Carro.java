@@ -22,7 +22,7 @@ public class Carro extends Vehiculo {
     @Override
     public double calcularLitrosCombustibleXKm(int cantKm) {
         // TODO implement here
-        return 0.0d;
+        return cantKm*3.9;
     }
 
 }

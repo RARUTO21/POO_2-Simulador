@@ -3,10 +3,6 @@ package clases;
 
 import java.util.*;
 
-
-/**
- * 
- */
 public class Empresa {
     private Empresa instance;
     private double fondos;
