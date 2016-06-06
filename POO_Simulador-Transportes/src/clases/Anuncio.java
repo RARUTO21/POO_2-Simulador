@@ -1,103 +1,52 @@
 package clases;
 
-/**
- * 
- */
+import java.util.Random;
+
 public class Anuncio {
 
-    /**
-     * Default constructor
-     */
-
-    /**
-     * 
-     */
     private String descripcion;
-
-    /**
-     * 
-     */
     private int duracionAnuncio;
-
-    /**
-     * 
-     */
     private double pesoPaquete;
-
-    /**
-     * 
-     */
     private int distanciaEnKm;
-
-    /**
-     * 
-     */
+    private String medioTransporte;
     private boolean servicioEspecial;
-
-    /**
-     * 
-     */
     private boolean nextDay;
+    
+    private Random random;
 
-
-    /**
-     * @param descripcion
-     * @param capacidadCargaRequerida
-     * @param distanciaEnKm
-     * @param medioTransporte
-     * @param servicioEspecial
-     * @param nextDay
-     */
-    public Anuncio(String descripcion, int capacidadCargaRequerida, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
-        // TODO implement here
+    public Anuncio(String descripcion, int pesoPaquete, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
+        int tiempoRandom = random.nextInt((90 - 30) + 1) + 30;
+        duracionAnuncio = tiempoRandom;
+        this.descripcion = descripcion;
+        this.pesoPaquete = pesoPaquete;
+        this.distanciaEnKm = distanciaEnKm;
+        this.medioTransporte = medioTransporte;
+        this.servicioEspecial = servicioEspecial;
+        this.nextDay = nextDay;
     }
 
-    /**
-     * @return
-     */
     public int getDuracionAnuncio() {
-        // TODO implement here
-        return 0;
+        return this.duracionAnuncio;
     }
 
-    /**
-     * @return
-     */
     public String getDescripcion() {
-        // TODO implement here
-        return "";
+        return this.descripcion;
     }
 
-    /**
-     * @return
-     */
     public double getPesoPaquete() {
-        // TODO implement here
-        return 0.0d;
+        return this.pesoPaquete;
     }
 
-    /**
-     * @return
-     */
     public int getDistanciaEnKm() {
-        // TODO implement here
-        return 0;
+        return this.distanciaEnKm;
     }
 
-    /**
-     * @return
-     */
     public boolean getServicioEspecial() {
-        // TODO implement here
-        return false;
+        return this.servicioEspecial;
     }
 
-    /**
-     * @return
-     */
     public boolean getNextDay() {
-        // TODO implement here
-        return false;
+        return this.nextDay;
     }
 
 }

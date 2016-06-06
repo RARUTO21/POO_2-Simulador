@@ -76,22 +76,8 @@ public class Empresa {
         return anuncios;
     }
 
-    /**
-     * @param Vehiculo vehiculo 
-     * @param double precio 
-     * @return
-     */
     public void darMantenimientoAVehiculo(Vehiculo vehiculo, double precio) {
-        // TODO implement here
-    }
-
-    /**
-     * @param Vehiculo vehiculo 
-     * @param double precio 
-     * @return
-     */
-    public void repararVehiculo(Vehiculo vehiculo, double precio) {
-        // TODO implement here
+        
     }
 
     /**
