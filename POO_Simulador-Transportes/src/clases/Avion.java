@@ -1,29 +1,19 @@
-
-import java.util.*;
+package clases;
 
 /**
  * 
  */
 public class Avion extends Vehiculo {
 
-    /**
-     * Default constructor
-     */
     public Avion() {
-    }
-
-    /**
-     * 
-     */
-    public void Avion() {
         // TODO implement here
     }
 
     /**
-     * @param int cantKm 
+     * @param cantKm
      * @return
      */
-    public double calcularLitrosCombustibleXKm(void int cantKm) {
+    public double calcularLitrosCombustibleXKm(int cantKm) {
         // TODO implement here
         return 0.0d;
     }

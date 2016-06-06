@@ -1,68 +1,33 @@
+package clases;
 
-import java.util.*;
+import java.util.ArrayList;
 
-/**
- * 
- */
 public class Chofer {
 
-    /**
-     * Default constructor
-     */
-    public Chofer() {
+    private String nombre;    
+    private ArrayList<Boolean> licencias;
+    
+    public Chofer(String nombre, int indiceLicencia) {
+        
+    }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+        
     }
 
-    /**
-     * 
-     */
-    private String nombre;
-
-    /**
-     * 
-     */
-    private ArrayList<boolean> licencias;
-
-
-    /**
-     * @param String nombre 
-     * @param int indiceLicencia
-     */
-    public void Chofer(void String nombre, void int indiceLicencia) {
-        // TODO implement here
-    }
-
-    /**
-     * @param String nombre 
-     * @return
-     */
-    public void setNombre(void String nombre) {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
     public String getNombre() {
-        // TODO implement here
-        return "";
+        return nombre;
     }
 
-    /**
-     * @param int indiceLicencia 
-     * @return
-     */
-    public void agregarLicencia(void int indiceLicencia) {
-        // TODO implement here
-        return null;
+  
+    public void agregarLicencia(int indiceLicencia) {
+        licencias.add(indiceLicencia,true);
     }
 
-    /**
-     * @return
-     */
-    public ArrayList<boolean> obtenerLicencias() {
-        // TODO implement here
-        return null;
+    
+    public ArrayList<Boolean> obtenerLicencias() {
+        return this.licencias;
     }
 
 }

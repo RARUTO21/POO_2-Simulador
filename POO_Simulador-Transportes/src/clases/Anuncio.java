@@ -1,5 +1,4 @@
-
-import java.util.*;
+package clases;
 
 /**
  * 
@@ -9,8 +8,6 @@ public class Anuncio {
     /**
      * Default constructor
      */
-    public Anuncio() {
-    }
 
     /**
      * 
@@ -44,14 +41,14 @@ public class Anuncio {
 
 
     /**
-     * @param String descripcion 
-     * @param int capacidadCargaRequerida 
-     * @param int distanciaEnKm 
-     * @param String medioTransporte 
-     * @param boolean servicioEspecial 
-     * @param boolean nextDay
+     * @param descripcion
+     * @param capacidadCargaRequerida
+     * @param distanciaEnKm
+     * @param medioTransporte
+     * @param servicioEspecial
+     * @param nextDay
      */
-    public void Anuncio(void String descripcion, void int capacidadCargaRequerida, void int distanciaEnKm, void String medioTransporte, void boolean servicioEspecial, void boolean nextDay) {
+    public Anuncio(String descripcion, int capacidadCargaRequerida, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
         // TODO implement here
     }
 

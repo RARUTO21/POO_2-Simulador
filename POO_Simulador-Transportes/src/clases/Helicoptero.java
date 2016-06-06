@@ -1,9 +1,6 @@
+package clases;
 
-import java.util.*;
 
-/**
- * 
- */
 public class Helicoptero extends Vehiculo {
 
     /**
@@ -12,19 +9,7 @@ public class Helicoptero extends Vehiculo {
     public Helicoptero() {
     }
 
-    /**
-     * 
-     */
-    public void Helicoptero() {
-        // TODO implement here
-    }
-
-    /**
-     * @param int cantKm 
-     * @return
-     */
-    public double calcularLitrosCombustibleXKm(void int cantKm) {
-        // TODO implement here
+    public double calcularLitrosCombustibleXKm(int cantKm) {
         return 0.0d;
     }
 
