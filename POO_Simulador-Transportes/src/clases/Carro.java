@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class Carro extends VehiculoTerrestre implements Terrestre {
+public class Carro extends Vehiculo {
 
     /**
      * Default constructor
@@ -26,15 +26,6 @@ public class Carro extends VehiculoTerrestre implements Terrestre {
     public double calcularLitrosCombustibleXKm(void int cantKm) {
         // TODO implement here
         return 0.0d;
-    }
-
-    /**
-     * @param int cantTiempo 
-     * @return
-     */
-    public void desplazarsePorTierra(void int cantTiempo) {
-        // TODO implement here
-        return null;
     }
 
 }

@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  */
-public class Helicoptero extends VehiculoVolador implements Volador {
+public class Helicoptero extends Vehiculo {
 
     /**
      * Default constructor
@@ -26,15 +26,6 @@ public class Helicoptero extends VehiculoVolador implements Volador {
     public double calcularLitrosCombustibleXKm(void int cantKm) {
         // TODO implement here
         return 0.0d;
-    }
-
-    /**
-     * @param int cantTiempo 
-     * @return
-     */
-    public void desplazarsePorAire(void int cantTiempo) {
-        // TODO implement here
-        return null;
     }
 
 }
