@@ -1,10 +1,21 @@
+package clases;
+
 
 import java.util.*;
+
 
 /**
  * 
  */
 public class Empresa {
+    private double fondos;
+    private double precioXLitroCombustible;
+    private double gastos;
+    private double ganancias;
+    private ArrayList <Vehiculo> vehiculos;
+    private ArrayList <Chofer> choferes;
+    private ArrayList <Anuncio> anuncio; 
+
 
     /**
      * Default constructor
@@ -12,44 +23,11 @@ public class Empresa {
     public Empresa() {
     }
 
+   
     /**
      * 
      */
-    private double fondos;
-
-    /**
-     * 
-     */
-    private double precioXLitroCombustible;
-
-    /**
-     * 
-     */
-    private double gastos;
-
-    /**
-     * 
-     */
-    private double ganancias;
-
-    /**
-     * 
-     */
-    private Set<Vehiculo> vehiculos: ArrayList<Vehiculo>;
-
-    /**
-     * 
-     */
-    private Set<Chofer> choferes: ArrayList<Chofer>;
-
-    /**
-     * 
-     */
-    private Set<Anuncio> anuncios: ArrayList<Anuncio>;
-
-    /**
-     * 
-     */
+     
     private void Empresa() {
         // TODO implement here
     }
@@ -67,7 +45,7 @@ public class Empresa {
      * @param String tipoLicencia 
      * @return
      */
-    public void contratarChofer(void String nombre, void String tipoLicencia) {
+    public void contratarChofer( String nombre,  String tipoLicencia) {
         // TODO implement here
         return null;
     }
@@ -77,7 +55,7 @@ public class Empresa {
      * @param String tipoLicencia 
      * @return
      */
-    public void capacitarChofer(void Chofer chofer, void String tipoLicencia) {
+    public void capacitarChofer(Chofer chofer, String tipoLicencia) {
         // TODO implement here
         return null;
     }
@@ -85,7 +63,7 @@ public class Empresa {
     /**
      * @return
      */
-    public ArrayList<Empleado> getChoferes() {
+    public ArrayList<Chofer> getChoferes() {
         // TODO implement here
         return null;
     }
@@ -111,7 +89,7 @@ public class Empresa {
      * @param double precio 
      * @return
      */
-    public void darMantenimientoAVehiculo(void Vehiculo vehiculo, void double precio) {
+    public void darMantenimientoAVehiculo(Vehiculo vehiculo, double precio) {
         // TODO implement here
         return null;
     }
@@ -121,7 +99,7 @@ public class Empresa {
      * @param double precio 
      * @return
      */
-    public void repararVehiculo(void Vehiculo vehiculo, void double precio) {
+    public void repararVehiculo(Vehiculo vehiculo, double precio) {
         // TODO implement here
         return null;
     }
@@ -131,7 +109,7 @@ public class Empresa {
      * @param double precio 
      * @return
      */
-    public void comprarVehiculo(void Vehiculo vehiculo, void double precio) {
+    public void comprarVehiculo(Vehiculo vehiculo, double precio) {
         // TODO implement here
         return null;
     }
@@ -148,7 +126,7 @@ public class Empresa {
      * @param Anuncio anuncio 
      * @return
      */
-    public void eliminarAnuncio(void Anuncio anuncio) {
+    public void eliminarAnuncio( Anuncio anuncio) {
         // TODO implement here
         return null;
     }
@@ -173,7 +151,7 @@ public class Empresa {
      * @param double precio 
      * @return
      */
-    public void setPrecioXLitroCombustible(void double precio) {
+    public void setPrecioXLitroCombustible( double precio) {
         // TODO implement here
         return null;
     }
@@ -184,7 +162,7 @@ public class Empresa {
      * @param Anuncio anuncio 
      * @return
      */
-    public void estimarCostosDeTransporte(void Chofer chofer, void Vehiculo vehiculo, void Anuncio anuncio) {
+    public void estimarCostosDeTransporte( Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) {
         // TODO implement here
         return null;
     }
@@ -195,7 +173,7 @@ public class Empresa {
      * @param Anuncio anuncio 
      * @return
      */
-    public void realizarTransporte(void Chofer chofer, void Vehiculo vehiculo, void Anuncio anuncio) {
+    public void realizarTransporte(Chofer chofer,Vehiculo vehiculo, Anuncio anuncio) {
         // TODO implement here
         return null;
     }
@@ -204,7 +182,7 @@ public class Empresa {
      * @param double gastos 
      * @return
      */
-    public void setGastos(void double gastos) {
+    public void setGastos( double gastos) {
         // TODO implement here
         return null;
     }
@@ -213,7 +191,7 @@ public class Empresa {
      * @param double ganancias 
      * @return
      */
-    public void setGanancias(void double ganancias) {
+    public void setGanancias(double ganancias) {
         // TODO implement here
         return null;
     }

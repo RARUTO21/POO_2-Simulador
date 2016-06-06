@@ -1,3 +1,4 @@
+package clases;
 
 import java.util.*;
 
@@ -12,18 +13,13 @@ public class Barco extends Vehiculo {
     public Barco() {
     }
 
-    /**
-     * 
-     */
-    public void Barco() {
-        // TODO implement here
-    }
+    
 
     /**
      * @param int cantKm 
      * @return
      */
-    public double calcularLitrosCombustibleXKm(void int cantKm) {
+    public double calcularLitrosCombustibleXKm(int cantKm) {
         // TODO implement here
         return 0.0d;
     }
