@@ -5,54 +5,42 @@ package clases;
 public abstract class Vehiculo {
     protected double capacidadCargaDisponible;
     protected int vidaUtil;
-    private String id;
+    private final String id;
     private static int contadorID;
     
+    private final int maxVidaUtil;
     
-
-    /**
-     * Constructor
-     * @param String id 
-     * @param int usosRestantes
-     */
-    public Vehiculo(int vidaUtil, String id) {
-        this.vidaUtil = vidaUtil;
-        this.id = id;
-        // TODO implement here
+    
+    public Vehiculo(int vidaUtil, String id, double capacidadCargaDisponible) {
         
+        this.capacidadCargaDisponible = capacidadCargaDisponible;
+        this.vidaUtil = vidaUtil;
+        this.id = id + Integer.toString(contadorID);
+        contadorID++;
+        
+        this.maxVidaUtil = vidaUtil;
     }
     
-    /**
-     * @return
-     */
     public String getID() {
-        // TODO implement here
         return id;
     }
 
-    /**
-     * @return
-     */
     public double getCapacidadCargaDisponibles() {
-        // TODO implement here
         return capacidadCargaDisponible;
     }
 
-    
-
-    /**
-     * @return vidaUtil
-     */
     public int getVidaUtil() {
-        // TODO implement here
         return vidaUtil;
     }
 
-    /**
-     * @param int cantKm 
-     * @return
-     */
     abstract public double calcularLitrosCombustibleXKm(int cantKm);
+    
+    abstract public void reparar();
+    
+    public void darMantenimiento(){
+        this.vidaUtil = this.maxVidaUtil;
+    }
+    
     
 
 }

@@ -17,160 +17,155 @@ public class Empresa {
    
     private Empresa() {
         // TODO implement here
+        gastos = 0;
+        ganancias = 0;
+        
+        vehiculos = new ArrayList();
+        choferes = new ArrayList();
+        anuncios = new ArrayList();
+        
     }
 
-    /**
-     * @return
-     */
     public Empresa getInstance() {
-        // TODO implement here
         if(instance == null){
             instance = new Empresa();
         }
         return instance;
     }
 
-    /**
-     * @param String nombre 
-     * @param String tipoLicencia 
-     * @return
-     */
-    public void contratarChofer( String nombre,  String tipoLicencia) {
+   
+    public void contratarChofer( String nombre,  int tipoLicencia) {
         // TODO implement here
+       
+        choferes.add(new Chofer(nombre,tipoLicencia));
+        
+        /*switch(tipoLicencia){//Podría ser que tipoLicencia venga de una vez de tipo int [0,6[ , y asi no habría q hacer un switch
+           case "Moto":{
+               choferes.add(new Chofer(nombre,0));
+               break;
+           }
+           case "Carro":{
+               choferes.add(new Chofer(nombre,1));
+               break;
+           }
+           case "Barco":{
+               choferes.add(new Chofer(nombre,2));
+               break;
+           }
+           case "Helicóptero":{//Ojo, tiene tilde
+               choferes.add(new Chofer(nombre,3));
+               break;
+           }
+           case "Ferry":{
+               choferes.add(new Chofer(nombre,4));
+               break;
+           }
+           case "Avión":{//Ojo, tambien tiene tilde
+               choferes.add(new Chofer(nombre,5));
+               break;
+           }
+       }*/
+       
     }
 
-    /**
-     * @param Chofer chofer 
-     * @param String tipoLicencia 
-     * @return
-     */
-    public void capacitarChofer(Chofer chofer, String tipoLicencia) {
+    public void capacitarChofer(Chofer chofer, int tipoLicencia) {
         // TODO implement here
+        choferes.get(choferes.indexOf(chofer)).agregarLicencia(tipoLicencia);
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Chofer> getChoferes() {
         // TODO implement here
         return choferes;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Vehiculo> getVehiculos() {
         // TODO implement here
         return vehiculos;
     }
 
-    /**
-     * @return
-     */
     public ArrayList<Anuncio> getAnuncios() {
         // TODO implement here
         return anuncios;
     }
 
-    public void darMantenimientoAVehiculo(Vehiculo vehiculo, double precio) {
-        
+    public void darMantenimientoAVehiculo(Vehiculo vehiculo, double precio)throws Exception {
+        if(precio > fondos){
+            throw new Exception("No alcanza el dinero para pagar el mantenimiento del vehículo.");
+        }
+        else{
+            fondos -= precio;
+            vehiculo.darMantenimiento();
+        }
     }
 
-    /**
-     * @param Vehiculo vehiculo 
-     * @param double precio 
-     * @return
-     */
-    public void comprarVehiculo(Vehiculo vehiculo, double precio) {
+    public void comprarVehiculo(Vehiculo vehiculo, double precio) throws Exception{
         // TODO implement here
+        if(precio > fondos){
+            throw new Exception("No alcanza el dinero para comprar este vehículo.");
+        }
+        else{
+            fondos -= precio;
+            vehiculos.add(vehiculo);
+        }
     }
 
-    /**
-     * @return
-     */
+
     public void generarAnuncio() {
         // TODO implement here
+        
+        //Establecer parámetros random
     }
 
-    /**
-     * @param Anuncio anuncio 
-     * @return
-     */
+
     public void eliminarAnuncio( Anuncio anuncio) {
         // TODO implement here
+        anuncios.remove(anuncio);
     }
 
-    /**
-     * @return
-     */
     public double getFondos() {
         // TODO implement here
         return fondos;
     }
+    
+    public void setFondos(double fondos){
+        this.fondos = fondos;
+    }
 
-    /**
-     * @return
-     */
     public double getPrecioXLitroCombustible() {
         // TODO implement here
         return precioXLitroCombustible;
     }
 
-    /**
-     * @param double precio 
-     * @return
-     */
     public void setPrecioXLitroCombustible( double precio) {
         // TODO implement here
+        this.precioXLitroCombustible = precio;
     }
 
-    /**
-     * @param Chofer chofer 
-     * @param Vehiculo vehiculo 
-     * @param Anuncio anuncio 
-     * @return
-     */
-    public void estimarCostosDeTransporte( Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) {
+    public void estimarCostosDeTransporte( Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) throws Exception {
         // TODO implement here
+        
+        //FALTA
     }
 
-    /**
-     * @param Chofer chofer 
-     * @param Vehiculo vehiculo 
-     * @param Anuncio anuncio 
-     * @return
-     */
     public void realizarTransporte(Chofer chofer,Vehiculo vehiculo, Anuncio anuncio) {
-        // TODO implement here
+        //FALTA
     }
 
-    /**
-     * @param double gastos 
-     * @return
-     */
     public void setGastos( double gastos) {
         // TODO implement here
+        this.gastos = gastos;
     }
 
-    /**
-     * @param double ganancias 
-     * @return
-     */
     public void setGanancias(double ganancias) {
         // TODO implement here
+        this.ganancias = ganancias;
     }
 
-    /**
-     * @return
-     */
     public double getGastos() {
         // TODO implement here
         return gastos;
     }
 
-    /**
-     * @return
-     */
     public double getGanancias() {
         // TODO implement here
         return ganancias;
