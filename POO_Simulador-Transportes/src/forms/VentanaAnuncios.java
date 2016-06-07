@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package forms;
+import clases.Anuncio;
+import clases.Empresa;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +20,14 @@ public class VentanaAnuncios extends javax.swing.JDialog {
     public VentanaAnuncios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        
+        java.awt.Dimension dimensionListaServicios = tablaAnuncios.getPreferredSize(); //-------
+        dimensionListaServicios.width = 265;                                            //-------
+        jscrPanel.setPreferredSize(dimensionListaServicios);
+        
+        actualizarValoresTablaAnuncios();
+        
     }
 
     /**
@@ -28,17 +39,68 @@ public class VentanaAnuncios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jscrPanel = new javax.swing.JScrollPane();
+        tablaAnuncios = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Vista de anuncios");
+
+        tablaAnuncios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Descripción", "Peso del Paquete", "Distancia en Km", "Servicio Especial", "Next Day"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jscrPanel.setViewportView(tablaAnuncios);
+        if (tablaAnuncios.getColumnModel().getColumnCount() > 0) {
+            tablaAnuncios.getColumnModel().getColumn(0).setResizable(false);
+            tablaAnuncios.getColumnModel().getColumn(1).setResizable(false);
+            tablaAnuncios.getColumnModel().getColumn(2).setResizable(false);
+            tablaAnuncios.getColumnModel().getColumn(3).setResizable(false);
+            tablaAnuncios.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -47,6 +109,19 @@ public class VentanaAnuncios extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
+    
+    
+    public void actualizarValoresTablaAnuncios(){
+        
+        DefaultTableModel modelo = (DefaultTableModel) tablaAnuncios.getModel();
+        
+        Empresa.getInstance().getAnuncios().stream().forEach((anuncio) -> {
+            modelo.addRow(new Object[]{anuncio.getDescripcion(),anuncio.getPesoPaquete(),anuncio.getDistanciaEnKm(),anuncio.getServicioEspecial(),anuncio.getNextDay()});
+        });
+        
+        tablaAnuncios.setModel(modelo);
+    }
+            
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -87,5 +162,8 @@ public class VentanaAnuncios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jscrPanel;
+    private javax.swing.JTable tablaAnuncios;
     // End of variables declaration//GEN-END:variables
 }

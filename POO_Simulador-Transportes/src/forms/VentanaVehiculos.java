@@ -22,18 +22,15 @@ public class VentanaVehiculos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         tblVehiculos.setDefaultEditor(Object.class,null);
-        actualizarValoresTablaClientes();
+        actualizarValoresTablaVehiculos();
     }
     
-    private void actualizarValoresTablaClientes(){
+    private void actualizarValoresTablaVehiculos(){
         btnDarMantenimiento.setEnabled(false);
         btnRepararVehiculo.setEnabled(false);
-        DefaultTableModel modelo = new DefaultTableModel();
-        //modelo.setRowCount(Barberia.getInstance().obtenerClientes().size());
-        modelo.setColumnCount(3);
-        
-        modelo.setColumnIdentifiers(new Object[]{"Nombre","Teléfono","Correo"});
-        
+
+        DefaultTableModel modelo = (DefaultTableModel) tblVehiculos.getModel();
+
         empresa.getVehiculos().stream().forEach((vehiculo) -> {
             modelo.addRow(new Object[]{vehiculo.getID(),vehiculo.getCapacidadCargaDisponibles(),vehiculo.getVidaUtil()});
         });
