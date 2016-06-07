@@ -4,7 +4,7 @@ package clases;
 import java.util.*;
 
 public class Empresa {
-    private Empresa instance;
+    private static Empresa instance;
     private double fondos;
     private double precioXLitroCombustible;
     private double gastos;
@@ -26,7 +26,7 @@ public class Empresa {
         
     }
 
-    public Empresa getInstance() {
+    public static Empresa getInstance() {
         if(instance == null){
             instance = new Empresa();
         }

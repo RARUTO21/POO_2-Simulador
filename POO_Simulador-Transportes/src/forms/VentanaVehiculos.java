@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package forms;
+import clases.Empresa;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,6 +14,7 @@ package forms;
  */
 public class VentanaVehiculos extends javax.swing.JDialog {
 
+   private Empresa empresa = Empresa.getInstance();
     /**
      * Creates new form VentanaVehiculos
      */
@@ -18,6 +22,18 @@ public class VentanaVehiculos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    
+    private void actualizarValoresTablaClientes(){
+        DefaultTableModel modelo = new DefaultTableModel();
+        //modelo.setRowCount(Barberia.getInstance().obtenerClientes().size());
+        modelo.setColumnCount(3);
+        
+        modelo.setColumnIdentifiers(new Object[]{"Nombre","Teléfono","Correo"});
+        
+        Barberia.getInstance().getClientes().stream().forEach((cliente) -> {
+            modelo.addRow(new Object[]{cliente.getNombre(),cliente.getTelefono(),cliente.getCorreo()});
+        });
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,17 +44,91 @@ public class VentanaVehiculos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnComprarVehiculo = new javax.swing.JButton();
+        btnRepararVehiculo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Vehiculos");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Capacidad Max", "Vida Util"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        btnComprarVehiculo.setText("Comprar Vehiculo");
+
+        btnRepararVehiculo.setText("Reparar Vehiculo");
+
+        jButton1.setText("Dar mantenimiento ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRepararVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnComprarVehiculo)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(btnComprarVehiculo)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnRepararVehiculo)
+                        .addGap(48, 48, 48)
+                        .addComponent(jButton1)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,5 +177,11 @@ public class VentanaVehiculos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnComprarVehiculo;
+    private javax.swing.JButton btnRepararVehiculo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
