@@ -21,18 +21,29 @@ public class VentanaVehiculos extends javax.swing.JDialog {
     public VentanaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        tblVehiculos.setDefaultEditor(Object.class,null);
+        actualizarValoresTablaClientes();
     }
     
     private void actualizarValoresTablaClientes(){
+        btnDarMantenimiento.setEnabled(false);
+        btnRepararVehiculo.setEnabled(false);
         DefaultTableModel modelo = new DefaultTableModel();
         //modelo.setRowCount(Barberia.getInstance().obtenerClientes().size());
         modelo.setColumnCount(3);
         
         modelo.setColumnIdentifiers(new Object[]{"Nombre","Teléfono","Correo"});
         
-        Barberia.getInstance().getClientes().stream().forEach((cliente) -> {
-            modelo.addRow(new Object[]{cliente.getNombre(),cliente.getTelefono(),cliente.getCorreo()});
+        empresa.getVehiculos().stream().forEach((vehiculo) -> {
+            modelo.addRow(new Object[]{vehiculo.getID(),vehiculo.getCapacidadCargaDisponibles(),vehiculo.getVidaUtil()});
         });
+    }
+    
+    private void tblVehiculosMouseClicked(java.awt.event.MouseEvent evt) {                                           
+        // TODO add your handling code here:
+        btnDarMantenimiento.setEnabled(true);
+        btnRepararVehiculo.setEnabled(true);
+    }
     
 
     /**
@@ -46,16 +57,16 @@ public class VentanaVehiculos extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblVehiculos = new javax.swing.JTable();
         btnComprarVehiculo = new javax.swing.JButton();
         btnRepararVehiculo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnDarMantenimiento = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Vehiculos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -78,18 +89,18 @@ public class VentanaVehiculos extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(tblVehiculos);
+        if (tblVehiculos.getColumnModel().getColumnCount() > 0) {
+            tblVehiculos.getColumnModel().getColumn(0).setResizable(false);
+            tblVehiculos.getColumnModel().getColumn(1).setResizable(false);
+            tblVehiculos.getColumnModel().getColumn(2).setResizable(false);
         }
 
         btnComprarVehiculo.setText("Comprar Vehiculo");
 
         btnRepararVehiculo.setText("Reparar Vehiculo");
 
-        jButton1.setText("Dar mantenimiento ");
+        btnDarMantenimiento.setText("Dar mantenimiento ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +120,7 @@ public class VentanaVehiculos extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnComprarVehiculo)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnDarMantenimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,7 +138,7 @@ public class VentanaVehiculos extends javax.swing.JDialog {
                         .addGap(47, 47, 47)
                         .addComponent(btnRepararVehiculo)
                         .addGap(48, 48, 48)
-                        .addComponent(jButton1)))
+                        .addComponent(btnDarMantenimiento)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -178,10 +189,10 @@ public class VentanaVehiculos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComprarVehiculo;
+    private javax.swing.JButton btnDarMantenimiento;
     private javax.swing.JButton btnRepararVehiculo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblVehiculos;
     // End of variables declaration//GEN-END:variables
 }
