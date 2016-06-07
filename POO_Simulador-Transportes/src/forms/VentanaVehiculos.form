@@ -123,11 +123,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Comprar Vehiculo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnComprarVehiculoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRepararVehiculo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reparar Vehiculo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRepararVehiculoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDarMantenimiento">
       <Properties>

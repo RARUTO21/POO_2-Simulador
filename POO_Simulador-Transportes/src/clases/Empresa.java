@@ -89,24 +89,18 @@ public class Empresa {
     }
 
     public void darMantenimientoAVehiculo(Vehiculo vehiculo, double precio)throws Exception {
-        if(precio > fondos){
-            throw new Exception("No alcanza el dinero para pagar el mantenimiento del vehículo.");
-        }
-        else{
+        
             fondos -= precio;
+            gastos+=precio;
             vehiculo.darMantenimiento();
-        }
+        
     }
 
     public void comprarVehiculo(Vehiculo vehiculo, double precio) throws Exception{
         // TODO implement here
-        if(precio > fondos){
-            throw new Exception("No alcanza el dinero para comprar este vehículo.");
-        }
-        else{
             fondos -= precio;
             vehiculos.add(vehiculo);
-        }
+        
     }
 
 

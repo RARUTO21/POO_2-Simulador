@@ -5,6 +5,7 @@
  */
 package forms;
 import clases.Empresa;
+import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -94,8 +95,18 @@ public class VentanaVehiculos extends javax.swing.JDialog {
         }
 
         btnComprarVehiculo.setText("Comprar Vehiculo");
+        btnComprarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarVehiculoActionPerformed(evt);
+            }
+        });
 
         btnRepararVehiculo.setText("Reparar Vehiculo");
+        btnRepararVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepararVehiculoActionPerformed(evt);
+            }
+        });
 
         btnDarMantenimiento.setText("Dar mantenimiento ");
 
@@ -141,6 +152,21 @@ public class VentanaVehiculos extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnComprarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarVehiculoActionPerformed
+        // TODO add your handling code here:
+        if(empresa.getFondos()!=0){
+            new ComprarVehiculo(null,true).setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "No tiene fondos en la empresa");
+        }
+    }//GEN-LAST:event_btnComprarVehiculoActionPerformed
+
+    private void btnRepararVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepararVehiculoActionPerformed
+        // TODO add your handling code here:
+        double costoReparacion = Double.parseDouble(JOptionPane.showInputDialog(rootPane, "Ingrese el monto de reparacion", null, 1));
+    }//GEN-LAST:event_btnRepararVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
