@@ -5,12 +5,16 @@
  */
 package forms;
 
+import clases.Empresa;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anthony
  */
-public class VentanaChoferes extends javax.swing.JDialog {
 
+public class VentanaChoferes extends javax.swing.JDialog {
+private Empresa empresa = Empresa.getInstance();
     /**
      * Creates new form VentanaChoferes
      */
@@ -28,21 +32,65 @@ public class VentanaChoferes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        labChoferes = new javax.swing.JLabel();
+        btnContratarChofer = new javax.swing.JButton();
+        btnCapacitarChofer = new javax.swing.JButton();
+        btnVerChofer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        labChoferes.setText("Administración de Choferes");
+
+        btnContratarChofer.setText("Contratar Chofer");
+        btnContratarChofer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContratarChoferActionPerformed(evt);
+            }
+        });
+
+        btnCapacitarChofer.setText("Capacitar Chofer");
+
+        btnVerChofer.setText("Ver Choferes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnContratarChofer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnVerChofer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCapacitarChofer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(labChoferes, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labChoferes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnContratarChofer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCapacitarChofer)
+                .addGap(26, 26, 26)
+                .addComponent(btnVerChofer)
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnContratarChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratarChoferActionPerformed
+       new ContratarChofer(null, true).setVisible(true);
+    }//GEN-LAST:event_btnContratarChoferActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,5 +135,10 @@ public class VentanaChoferes extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapacitarChofer;
+    private javax.swing.JButton btnContratarChofer;
+    private javax.swing.JButton btnVerChofer;
+    private javax.swing.JLabel labChoferes;
     // End of variables declaration//GEN-END:variables
 }
+

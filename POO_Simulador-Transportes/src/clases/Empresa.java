@@ -34,37 +34,15 @@ public class Empresa {
     }
 
    
-    public void contratarChofer( String nombre,  int tipoLicencia) {
+    public void contratarChofer( String nombre,  int tipoLicencia, double costoContratacion) {
         // TODO implement here
        
         choferes.add(new Chofer(nombre,tipoLicencia));
+        gastos += costoContratacion;
+        fondos -= costoContratacion;
         
-        /*switch(tipoLicencia){//Podría ser que tipoLicencia venga de una vez de tipo int [0,6[ , y asi no habría q hacer un switch
-           case "Moto":{
-               choferes.add(new Chofer(nombre,0));
-               break;
-           }
-           case "Carro":{
-               choferes.add(new Chofer(nombre,1));
-               break;
-           }
-           case "Barco":{
-               choferes.add(new Chofer(nombre,2));
-               break;
-           }
-           case "Helicóptero":{//Ojo, tiene tilde
-               choferes.add(new Chofer(nombre,3));
-               break;
-           }
-           case "Ferry":{
-               choferes.add(new Chofer(nombre,4));
-               break;
-           }
-           case "Avión":{//Ojo, tambien tiene tilde
-               choferes.add(new Chofer(nombre,5));
-               break;
-           }
-       }*/
+        
+     
        
     }
 
