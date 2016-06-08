@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package forms;
-import clases.Anuncio;
 import clases.Empresa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anthony
  */
-public class VentanaAnuncios extends javax.swing.JDialog {
+public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
 
     /**
      * Creates new form VentanaAnuncios
@@ -27,7 +28,22 @@ public class VentanaAnuncios extends javax.swing.JDialog {
         jscrPanel.setPreferredSize(dimensionListaServicios);
         
         actualizarValoresTablaAnuncios();
+        //run();
         
+    }
+    
+    @Override
+    public void run(){
+        while(true){
+            System.out.println("Hola desde Ventana Anuncios!");
+            actualizarValoresTablaAnuncios();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(VentanaAnuncios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }
 
     /**
@@ -49,20 +65,17 @@ public class VentanaAnuncios extends javax.swing.JDialog {
 
         tablaAnuncios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Descripción", "Peso del Paquete", "Distancia en Km", "Servicio Especial", "Next Day"
+                "Descripción", "Peso del Paquete", "Distancia en Km", "Medio de Transporte", "Servicio Especial", "Next Day"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,13 +86,14 @@ public class VentanaAnuncios extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tablaAnuncios.getTableHeader().setReorderingAllowed(false);
         jscrPanel.setViewportView(tablaAnuncios);
         if (tablaAnuncios.getColumnModel().getColumnCount() > 0) {
-            tablaAnuncios.getColumnModel().getColumn(0).setResizable(false);
             tablaAnuncios.getColumnModel().getColumn(1).setResizable(false);
             tablaAnuncios.getColumnModel().getColumn(2).setResizable(false);
             tablaAnuncios.getColumnModel().getColumn(3).setResizable(false);
             tablaAnuncios.getColumnModel().getColumn(4).setResizable(false);
+            tablaAnuncios.getColumnModel().getColumn(5).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,9 +103,9 @@ public class VentanaAnuncios extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,17 +120,13 @@ public class VentanaAnuncios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    
     
     public void actualizarValoresTablaAnuncios(){
         
         DefaultTableModel modelo = (DefaultTableModel) tablaAnuncios.getModel();
         
         Empresa.getInstance().getAnuncios().stream().forEach((anuncio) -> {
-            modelo.addRow(new Object[]{anuncio.getDescripcion(),anuncio.getPesoPaquete(),anuncio.getDistanciaEnKm(),anuncio.getServicioEspecial(),anuncio.getNextDay()});
+            modelo.addRow(new Object[]{anuncio.getDescripcion(),anuncio.getPesoPaquete(),anuncio.getDistanciaEnKm(),anuncio.getMedioTransporte(),anuncio.getServicioEspecial(),anuncio.getNextDay()});
         });
         
         tablaAnuncios.setModel(modelo);
@@ -149,7 +159,9 @@ public class VentanaAnuncios extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 VentanaAnuncios dialog = new VentanaAnuncios(new javax.swing.JFrame(), true);
+                
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

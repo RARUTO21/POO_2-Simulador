@@ -5,6 +5,8 @@
  */
 package forms;
 
+import clases.Anuncio;
+import clases.Empresa;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,9 +34,23 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         
         int counter = 0;
         while(true){
-            System.out.println("Hola Mundo! Desde ventanaPri");
+            System.out.println(counter);
             lblContador.setText(Calendar.getInstance().getTime().toString());//Integer.toString(counter));
             counter++;
+            
+            for(int i = 0; i < Empresa.getInstance().getAnuncios().size(); i++){
+                
+                Empresa.getInstance().getAnuncios().get(i).reducirDuracion();
+                
+                if(Empresa.getInstance().getAnuncios().get(i).getDuracionAnuncio() == 0){
+                    Empresa.getInstance().getAnuncios().remove(i);
+                }
+            }
+            
+            if(counter%5 == 0){
+                Empresa.getInstance().generarAnuncio(); 
+            }
+            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
@@ -72,6 +88,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         btnChoferes.setText("Choferes");
 
         Anuncios.setText("Anuncios");
+        Anuncios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnunciosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Simulador de Transportes");
@@ -85,23 +106,27 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChoferes)
-                            .addComponent(btnVehiculos)
-                            .addComponent(Anuncios))))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(btnEstadoFinanciero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblContador)
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(161, 161, 161)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnChoferes)
+                                    .addComponent(btnVehiculos)
+                                    .addComponent(Anuncios))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblContador)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,10 +140,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 .addGap(29, 29, 29)
                 .addComponent(Anuncios)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEstadoFinanciero)
-                    .addComponent(lblContador))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(btnEstadoFinanciero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(lblContador)
+                .addContainerGap())
         );
 
         pack();
@@ -128,6 +153,14 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
         new VentanaVehiculos(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btnVehiculosActionPerformed
+
+    private void AnunciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnunciosActionPerformed
+        // TODO add your handling code here:
+        //new VentanaAnuncios(this,true).setVisible(true);
+        VentanaAnuncios ventana = new VentanaAnuncios(this,true);
+        ventana.setVisible(true);
+        
+    }//GEN-LAST:event_AnunciosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,6 +1,8 @@
 package clases;
 
 import java.util.*;
+import java.util.Random;
+
 
 public class Empresa {
 
@@ -37,7 +39,8 @@ public class Empresa {
         return instance;
     }
 
-    public void contratarChofer(String nombre, int tipoLicencia, double costoContratacion) {
+   
+    public void contratarChofer( String nombre,  int tipoLicencia, double costoContratacion) {
         // TODO implement here
 
         choferes.add(new Chofer(nombre, tipoLicencia));
@@ -90,6 +93,53 @@ public class Empresa {
         // TODO implement here
 
         //Establecer parámetros random
+        
+        String[] medioTransporte = {"Aire","Mar","Tierra"};
+        
+        String[] descripciones = {"Necesito ayuda con mi paquete","¿Alguien que sea tan amable de entregar este paquete por mí?","Psss, ¿quiere ganarse una harinilla miher?","Esto se va a D Esc Ctrl Alt... Ayyyyy, F1"};
+        
+        Random generadorRandom = null;
+        int index = (int)(Math.random() * 3);//generadorRandom.nextInt(4)-1;
+        System.out.println("Medio de transporte generado: "+ medioTransporte[index]);
+        String medioRandom = medioTransporte[index];
+        
+        index = (int)(Math.random() * 4);//generadorRandom.nextInt(descripciones.length);
+        String descripcion = descripciones[index];
+        System.out.println("Descripción generada: "+ descripciones[index]);
+        
+        int distanciaEnKm = (int)(Math.random() * 120);//generadorRandom.nextInt((120 - 30) + 1) + 30;
+        
+        //boolean servicioEspecial = generadorRandom.nextBoolean();
+        
+        //boolean nextDay = generadorRandom.nextBoolean();
+        
+        //Random trueOrFalse = null;
+        
+        
+        
+        double pesoPaquete;
+        
+        switch(medioRandom){
+            case "Aire":{
+                //int valor = generadorRandom.nextInt((120000 - 1200) + 1) + 1200;
+                pesoPaquete =  Math.random() * 120000;//(double) generadorRandom.nextInt((120000 - 0) + 1) + 0;
+                anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
+                break;
+            }
+            
+            case "Mar":{
+                pesoPaquete = Math.random() * 1000000;//(double) generadorRandom.nextInt((1000000 - 0) + 1) + 0;
+                anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
+                break;
+            }
+            
+            case "Tierra":{
+                pesoPaquete = Math.random() * 750;//(double) generadorRandom.nextInt((750 - 0) + 1) + 0;
+                anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
+                break;
+            }
+        }
+    
     }
 
     public void eliminarAnuncio(Anuncio anuncio) {

@@ -6,7 +6,7 @@ package clases;
 public class Avion extends Vehiculo {
 
     public Avion() {
-        super(5,"AVN",1500.0);
+        super(5,"AVN",120000.0);
     }
 
     @Override

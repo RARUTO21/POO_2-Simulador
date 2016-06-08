@@ -7,7 +7,7 @@ public class Helicoptero extends Vehiculo {
      * Default constructor
      */
     public Helicoptero() {
-        super(15,"HLP",310.0);
+        super(15,"HLP",3500.0);
     }
 
     @Override
