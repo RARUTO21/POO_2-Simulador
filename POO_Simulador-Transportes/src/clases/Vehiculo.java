@@ -32,10 +32,13 @@ public abstract class Vehiculo {
     public int getVidaUtil() {
         return vidaUtil;
     }
+    
+    public boolean vidautilIsMax(){
+        return vidaUtil==maxVidaUtil;
+    }
 
     abstract public double calcularLitrosCombustibleXKm(int cantKm);
     
-    abstract public void reparar();
     
     public void darMantenimiento(){
         this.vidaUtil = this.maxVidaUtil;

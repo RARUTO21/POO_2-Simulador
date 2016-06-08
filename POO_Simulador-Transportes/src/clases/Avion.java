@@ -15,9 +15,6 @@ public class Avion extends Vehiculo {
         return cantKm*12.34;
     }
     
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
+
 
 }

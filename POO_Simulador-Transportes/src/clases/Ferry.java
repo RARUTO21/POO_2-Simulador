@@ -13,9 +13,6 @@ public class Ferry extends Vehiculo {
         return cantKm*10.61;
     }
     
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
+
 
 }

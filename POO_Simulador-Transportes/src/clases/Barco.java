@@ -14,9 +14,5 @@ public class Barco extends Vehiculo {
         return cantKm*9.06;
     }
 
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
     
 }

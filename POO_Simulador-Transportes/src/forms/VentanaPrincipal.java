@@ -126,6 +126,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void btnVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculosActionPerformed
         // TODO add your handling code here:
+        new VentanaVehiculos(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btnVehiculosActionPerformed
 
     /**

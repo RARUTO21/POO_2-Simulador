@@ -11,10 +11,6 @@ public class Moto extends Vehiculo {
     public double calcularLitrosCombustibleXKm(int cantKm) {
         return cantKm*1.4;
     }
-    
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
+
 
 }

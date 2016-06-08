@@ -14,10 +14,6 @@ public class Helicoptero extends Vehiculo {
     public double calcularLitrosCombustibleXKm(int cantKm) {
         return cantKm * 6.64;
     }
-    
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
+
 
 }
