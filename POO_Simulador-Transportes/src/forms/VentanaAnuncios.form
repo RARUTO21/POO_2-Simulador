@@ -27,9 +27,13 @@
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jscrPanel" min="-2" pref="1045" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jscrPanel" min="-2" pref="1045" max="-2" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                      <Component id="btnEstimarGastos" min="-2" pref="68" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="80" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,7 +43,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="jscrPanel" min="-2" pref="579" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jscrPanel" min="-2" pref="579" max="-2" attributes="0"/>
+                  <Component id="btnEstimarGastos" min="-2" pref="48" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -111,5 +118,16 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnEstimarGastos">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/iconos/eye.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Estimar gastos de transporte"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEstimarGastosActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

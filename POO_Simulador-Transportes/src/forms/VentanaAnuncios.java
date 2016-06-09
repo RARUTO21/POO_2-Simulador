@@ -58,6 +58,7 @@ public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
         jLabel1 = new javax.swing.JLabel();
         jscrPanel = new javax.swing.JScrollPane();
         tablaAnuncios = new javax.swing.JTable();
+        btnEstimarGastos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -96,6 +97,14 @@ public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
             tablaAnuncios.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        btnEstimarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eye.png"))); // NOI18N
+        btnEstimarGastos.setToolTipText("Estimar gastos de transporte");
+        btnEstimarGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstimarGastosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,8 +113,11 @@ public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(btnEstimarGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,12 +125,20 @@ public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
-                .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jscrPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstimarGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEstimarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstimarGastosActionPerformed
+        // TODO add your handling code here:
+        
+        (new VentanaCalcularTransporte(this,true,Empresa.getInstance().getAnuncios().get(tablaAnuncios.getSelectedRow()))).setVisible(true);
+    }//GEN-LAST:event_btnEstimarGastosActionPerformed
 
     
     public void actualizarValoresTablaAnuncios(){
@@ -174,6 +194,7 @@ public class VentanaAnuncios extends javax.swing.JDialog implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEstimarGastos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jscrPanel;
     private javax.swing.JTable tablaAnuncios;

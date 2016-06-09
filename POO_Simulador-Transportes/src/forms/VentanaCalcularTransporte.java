@@ -6,6 +6,12 @@
 package forms;
 
 import clases.Anuncio;
+import clases.Empresa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -16,10 +22,20 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     /**
      * Creates new form VentanaCalcularTransporte
      */
-    public VentanaCalcularTransporte(java.awt.Frame parent, boolean modal, Anuncio anuncio) {
+    public VentanaCalcularTransporte(java.awt.Dialog parent, boolean modal, Anuncio anuncio) {
         super(parent, modal);
         this.anuncio = anuncio;
         initComponents();
+        txaAnuncio.setText(anuncio.toString());
+        
+        Empresa.getInstance().getVehiculos().stream().forEach((vehiculo) -> {
+            cBoxVehiculo.addItem(vehiculo.getID());
+        });
+        
+        Empresa.getInstance().getChoferes().stream().forEach((chofer) -> {
+            cBoxChoferes.addItem(chofer.getNombre());
+        });
+        
     }
 
     /**
@@ -36,31 +52,37 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cBoxVehiculo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        cboxChofer = new javax.swing.JComboBox();
+        cBoxChoferes = new javax.swing.JComboBox();
         btnEstimarT = new javax.swing.JButton();
         btnRealizarT = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        lblAnuncio = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaAnuncio = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Estimación de gastos de transporte");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jLabel2.setText("Seleccione el vehiculo con el que desea realizar el viaje");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
-        jPanel1.add(cBoxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, -1));
+        jPanel1.add(cBoxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 130, -1));
 
         jLabel3.setText("Seleccione el chofer que hará el viaje");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
-        jPanel1.add(cboxChofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, -1));
+        jPanel1.add(cBoxChoferes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, -1));
 
         btnEstimarT.setText("Estimar Transporte");
-        jPanel1.add(btnEstimarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+        btnEstimarT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstimarTActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEstimarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         btnRealizarT.setText("Realizar Transporte");
         btnRealizarT.addActionListener(new java.awt.event.ActionListener() {
@@ -68,13 +90,22 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
                 btnRealizarTActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRealizarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
+        jPanel1.add(btnRealizarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
         jLabel4.setText("Anuncio:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
+<<<<<<< HEAD
         lblAnuncio.setText("Aquí va el anuncio\nasd\nasdasda");
         jPanel1.add(lblAnuncio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+=======
+        txaAnuncio.setEditable(false);
+        txaAnuncio.setColumns(20);
+        txaAnuncio.setRows(5);
+        jScrollPane1.setViewportView(txaAnuncio);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 480, 100));
+>>>>>>> origin/master
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +130,75 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     private void btnRealizarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRealizarTActionPerformed
+
+    private boolean verificarVehiculo() throws Exception{
+        if(Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getVidaUtil() == 0){
+            throw new Exception("El vehículo necesita mantenimiento para ser utilizado");
+        }
+        //return Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getTipoVehiculo().equals(anuncio.getMedioTransporte());
+        if(!Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getTipoVehiculo().equals(anuncio.getMedioTransporte())){
+            throw new Exception("Vehículo no adecuado para este medio de transporte");
+        }
+        if(Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getCapacidadCargaDisponibles() < anuncio.getPesoPaquete()){
+            throw new Exception("El peso del paquete es superior a la capacidad de carga del vehículo");
+        }
+        return true;
+    }
+
+    private boolean verificarChofer(){
+        
+        String idVehiculo = Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getID();
+        String prefix = idVehiculo.substring(0,3);
+        switch(prefix){
+            case "MOT":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(0);
+            }
+            case "CAR":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(1);
+            }
+            case "AVN":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(2);
+            }
+            case "HLP":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(3);
+            }
+            case "FRY":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(4);
+            }
+            case "BRC":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(5);
+            }
+        }
+        System.out.println("La verificación de chofer no debería llegar hasta esta línea de código");
+        return false;
+    }
+    
+    
+    private void btnEstimarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstimarTActionPerformed
+        try {
+            if(verificarVehiculo()){
+                if(verificarChofer()){
+                    try {
+                        double costo = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(0);
+                        double ganancia = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(1);
+                        
+                        String texto = "Fondo actual: " + Empresa.getInstance().getFondos() +"\n\nCostos de transporte: " +  costo + "\nGanancias de transporte: " +  ganancia +  "\n\nFondo posterior al transporte: " + (Empresa.getInstance().getFondos() + (ganancia-costo));
+                        
+                        JOptionPane.showMessageDialog(null, texto, "Estimar costos",1);
+                    } catch (Exception ex) {
+                        Logger.getLogger(VentanaCalcularTransporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"El chofer no está capacitado para manejar el vehículo seleccionado.","Error al seleccionar chofer",0);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error al seleccionar vehículo",0);
+        }
+        
+        
+    }//GEN-LAST:event_btnEstimarTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,7 +230,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VentanaCalcularTransporte dialog = new VentanaCalcularTransporte(new javax.swing.JFrame(), true,null);
+                VentanaCalcularTransporte dialog = new VentanaCalcularTransporte(new javax.swing.JDialog(), true,null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -145,13 +245,14 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEstimarT;
     private javax.swing.JButton btnRealizarT;
+    private javax.swing.JComboBox cBoxChoferes;
     private javax.swing.JComboBox cBoxVehiculo;
-    private javax.swing.JComboBox cboxChofer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblAnuncio;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txaAnuncio;
     // End of variables declaration//GEN-END:variables
 }

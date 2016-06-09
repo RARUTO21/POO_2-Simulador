@@ -13,6 +13,7 @@ public class Carro extends Vehiculo {
     
     public Carro() {
         super(40,"CAR",530.0);
+        super.tipoVehiculo = "Terrestre";
     }
 
     /**

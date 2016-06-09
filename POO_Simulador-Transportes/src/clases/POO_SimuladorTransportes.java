@@ -13,6 +13,8 @@ public class POO_SimuladorTransportes {
         ventana.setVisible(true);
         ventana.run();
         //ventana
+        
+        
     }
     
 }

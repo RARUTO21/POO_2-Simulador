@@ -5,6 +5,7 @@ package clases;
 public abstract class Vehiculo {
     protected double capacidadCargaDisponible;
     protected int vidaUtil;
+    protected String tipoVehiculo;
     private final String id;
     private static int contadorID;
     
@@ -44,6 +45,8 @@ public abstract class Vehiculo {
         this.vidaUtil = this.maxVidaUtil;
     }
     
-    
+    public String getTipoVehiculo(){
+        return this.tipoVehiculo;
+    }
 
 }
