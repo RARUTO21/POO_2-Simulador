@@ -7,6 +7,7 @@ public class Barco extends Vehiculo {
      */
     public Barco() {
         super(30,"BRC",3200.0);
+        super.tipoVehiculo = "Marino";
     }
     
     @Override

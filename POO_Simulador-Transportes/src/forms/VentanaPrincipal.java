@@ -195,10 +195,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void AnunciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnunciosActionPerformed
         // TODO add your handling code here:
-        //new VentanaAnuncios(this,true).setVisible(true);
-        VentanaAnuncios ventana = new VentanaAnuncios(this,true);
-        ventana.setVisible(true);
-        
+       new VentanaAnuncios(this,true).setVisible(true);
     }//GEN-LAST:event_AnunciosActionPerformed
 
     private void btnChoferesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoferesActionPerformed

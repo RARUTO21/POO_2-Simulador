@@ -7,7 +7,11 @@ package forms;
 
 import clases.Anuncio;
 import clases.Empresa;
-import clases.Vehiculo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -29,7 +33,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         });
         
         Empresa.getInstance().getChoferes().stream().forEach((chofer) -> {
-            cBoxVehiculo.addItem(chofer.getNombre());
+            cBoxChoferes.addItem(chofer.getNombre());
         });
         
     }
@@ -48,7 +52,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         cBoxVehiculo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        cboxChofer = new javax.swing.JComboBox();
+        cBoxChoferes = new javax.swing.JComboBox();
         btnEstimarT = new javax.swing.JButton();
         btnRealizarT = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -70,9 +74,14 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         jLabel3.setText("Seleccione el chofer que hará el viaje");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
-        jPanel1.add(cboxChofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, -1));
+        jPanel1.add(cBoxChoferes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, -1));
 
         btnEstimarT.setText("Estimar Transporte");
+        btnEstimarT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstimarTActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEstimarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         btnRealizarT.setText("Realizar Transporte");
@@ -116,6 +125,75 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     private void btnRealizarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarTActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRealizarTActionPerformed
+
+    private boolean verificarVehiculo() throws Exception{
+        if(Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getVidaUtil() == 0){
+            throw new Exception("El vehículo necesita mantenimiento para ser utilizado");
+        }
+        //return Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getTipoVehiculo().equals(anuncio.getMedioTransporte());
+        if(!Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getTipoVehiculo().equals(anuncio.getMedioTransporte())){
+            throw new Exception("Vehículo no adecuado para este medio de transporte");
+        }
+        if(Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getCapacidadCargaDisponibles() < anuncio.getPesoPaquete()){
+            throw new Exception("El peso del paquete es superior a la capacidad de carga del vehículo");
+        }
+        return true;
+    }
+
+    private boolean verificarChofer(){
+        
+        String idVehiculo = Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()).getID();
+        String prefix = idVehiculo.substring(0,3);
+        switch(prefix){
+            case "MOT":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(0);
+            }
+            case "CAR":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(1);
+            }
+            case "AVN":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(2);
+            }
+            case "HLP":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(3);
+            }
+            case "FRY":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(4);
+            }
+            case "BRC":{
+                return Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()).obtenerLicencias().get(5);
+            }
+        }
+        System.out.println("La verificación de chofer no debería llegar hasta esta línea de código");
+        return false;
+    }
+    
+    
+    private void btnEstimarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstimarTActionPerformed
+        try {
+            if(verificarVehiculo()){
+                if(verificarChofer()){
+                    try {
+                        double costo = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(0);
+                        double ganancia = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(1);
+                        
+                        String texto = "Fondo actual: " + Empresa.getInstance().getFondos() +"\n\nCostos de transporte: " +  costo + "\nGanancias de transporte: " +  ganancia +  "\n\nFondo posterior al transporte: " + (Empresa.getInstance().getFondos() + (ganancia-costo));
+                        
+                        JOptionPane.showMessageDialog(null, texto, "Estimar costos",1);
+                    } catch (Exception ex) {
+                        Logger.getLogger(VentanaCalcularTransporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"El chofer no está capacitado para manejar el vehículo seleccionado.","Error al seleccionar chofer",0);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error al seleccionar vehículo",0);
+        }
+        
+        
+    }//GEN-LAST:event_btnEstimarTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,8 +240,8 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEstimarT;
     private javax.swing.JButton btnRealizarT;
+    private javax.swing.JComboBox cBoxChoferes;
     private javax.swing.JComboBox cBoxVehiculo;
-    private javax.swing.JComboBox cboxChofer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

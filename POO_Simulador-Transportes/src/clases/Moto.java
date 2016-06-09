@@ -5,6 +5,7 @@ public class Moto extends Vehiculo {
 
     public Moto() {
         super(20,"MOT",90.0);
+        super.tipoVehiculo = "Terrestre";
     }
 
     @Override

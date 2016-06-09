@@ -91,50 +91,42 @@ public class Empresa {
 
     public void generarAnuncio() {
         // TODO implement here
-
-        //Establecer parámetros random
         
-        String[] medioTransporte = {"Aire","Mar","Tierra"};
+        String[] medioTransporte = {"Aéreo","Marino","Terrestre"};
         
         String[] descripciones = {"Necesito ayuda con mi paquete","¿Alguien que sea tan amable de entregar este paquete por mí?","Psss, ¿quiere ganarse una harinilla miher?","Esto se va a D Esc Ctrl Alt... Ayyyyy, F1"};
         
-        Random generadorRandom = null;
-        int index = (int)(Math.random() * 3);//generadorRandom.nextInt(4)-1;
+        int index = (int)(Math.random() * 3);
+        
         System.out.println("Medio de transporte generado: "+ medioTransporte[index]);
+        
         String medioRandom = medioTransporte[index];
         
-        index = (int)(Math.random() * 4);//generadorRandom.nextInt(descripciones.length);
+        index = (int)(Math.random() * 4);
+        
         String descripcion = descripciones[index];
+        
         System.out.println("Descripción generada: "+ descripciones[index]);
         
-        int distanciaEnKm = (int)(Math.random() * 120);//generadorRandom.nextInt((120 - 30) + 1) + 30;
-        
-        //boolean servicioEspecial = generadorRandom.nextBoolean();
-        
-        //boolean nextDay = generadorRandom.nextBoolean();
-        
-        //Random trueOrFalse = null;
-        
-        
-        
+        int distanciaEnKm = (int)(Math.random() * 120);
+
         double pesoPaquete;
         
         switch(medioRandom){
-            case "Aire":{
-                //int valor = generadorRandom.nextInt((120000 - 1200) + 1) + 1200;
-                pesoPaquete =  Math.random() * 120000;//(double) generadorRandom.nextInt((120000 - 0) + 1) + 0;
+            case "Aéreo":{
+                pesoPaquete =  Math.random() * 120000;
                 anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
                 break;
             }
             
-            case "Mar":{
-                pesoPaquete = Math.random() * 1000000;//(double) generadorRandom.nextInt((1000000 - 0) + 1) + 0;
+            case "Marino":{
+                pesoPaquete = Math.random() * 1000000;
                 anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
                 break;
             }
             
-            case "Tierra":{
-                pesoPaquete = Math.random() * 750;//(double) generadorRandom.nextInt((750 - 0) + 1) + 0;
+            case "Terrestre":{
+                pesoPaquete = Math.random() * 750;
                 anuncios.add(new Anuncio(descripcion,pesoPaquete,distanciaEnKm,medioRandom,(new Random()).nextBoolean(),(new Random()).nextBoolean()));
                 break;
             }
@@ -166,10 +158,27 @@ public class Empresa {
         this.precioXLitroCombustible = precio;
     }
 
-    public void estimarCostosDeTransporte(Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) throws Exception {
+    public ArrayList<Double> estimarCostosDeTransporte(Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) throws Exception {
         // TODO implement here
-
-        //FALTA
+        
+        ArrayList<Double> datos = new ArrayList();
+     
+        Double gastosTemp = vehiculo.calcularLitrosCombustibleXKm(anuncio.getDistanciaEnKm()) * this.getPrecioXLitroCombustible();
+        
+        Double  gananciasTemp = gastosTemp + (gastosTemp * 0.2);
+        
+        if(anuncio.getServicioEspecial()){
+            gananciasTemp += (gananciasTemp *0.15);
+        }
+        
+        if(anuncio.getNextDay()){
+            gananciasTemp += (gananciasTemp *0.3);
+        }
+        
+        datos.add(gastosTemp);
+        datos.add(gananciasTemp);
+        
+        return datos;
     }
 
     public void realizarTransporte(Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) {

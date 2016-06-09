@@ -15,7 +15,7 @@ public class Anuncio {
     private Random random;
 
     public Anuncio(String descripcion, double pesoPaquete, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
-        int tiempoRandom = (int)(Math.random() * 90 );//random.nextInt((90 - 30) + 1) + 30;
+        int tiempoRandom = (int)(Math.random() * 90 );
         duracionAnuncio = tiempoRandom;
         this.descripcion = descripcion;
         this.pesoPaquete = pesoPaquete;
