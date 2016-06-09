@@ -73,7 +73,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         jLabel4.setText("Anuncio:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
 
-        lblAnuncio.setText("Aquí va el anuncio");
+        lblAnuncio.setText("Aquí va el anuncio\nasd\nasdasda");
         jPanel1.add(lblAnuncio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,7 +82,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

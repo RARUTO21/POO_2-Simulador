@@ -190,7 +190,6 @@ public class VentanaVehiculos extends javax.swing.JDialog {
     private void btnDarMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarMantenimientoActionPerformed
         // TODO add your handling code here:
         if(empresa.getVehiculos().get(tblVehiculos.getSelectedRow()).vidautilIsMax() == false){
-            System.out.println(""+tblVehiculos.getSelectedRow());
             double costoMantenimiento = Double.parseDouble(JOptionPane.showInputDialog(rootPane, "Ingrese el monto de reparacion", null, 1));
             if(costoMantenimiento<empresa.getFondos()){
                 try {

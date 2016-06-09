@@ -10,6 +10,7 @@ import clases.Empresa;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -42,13 +43,15 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 
                 Empresa.getInstance().getAnuncios().get(i).reducirDuracion();
                 
+                
                 if(Empresa.getInstance().getAnuncios().get(i).getDuracionAnuncio() == 0){
                     Empresa.getInstance().getAnuncios().remove(i);
                 }
             }
             
             if(counter%5 == 0){
-                Empresa.getInstance().generarAnuncio(); 
+                Empresa.getInstance().generarAnuncio();
+                
             }
             
             try {
@@ -98,6 +101,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         jLabel1.setText("Simulador de Transportes");
 
         btnEstadoFinanciero.setText("Estado financiero");
+        btnEstadoFinanciero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoFinancieroActionPerformed(evt);
+            }
+        });
 
         lblContador.setText("jLabel2");
 
@@ -106,27 +114,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(btnEstadoFinanciero)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(161, 161, 161)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnChoferes)
-                                    .addComponent(btnVehiculos)
-                                    .addComponent(Anuncios))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnVehiculos)
+                    .addComponent(btnChoferes)
+                    .addComponent(Anuncios)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEstadoFinanciero)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblContador)))
-                .addContainerGap())
+                        .addComponent(lblContador)
+                        .addGap(20, 20, 20)))
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,9 +139,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 .addComponent(Anuncios)
                 .addGap(30, 30, 30)
                 .addComponent(btnEstadoFinanciero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblContador)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,6 +159,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         ventana.setVisible(true);
         
     }//GEN-LAST:event_AnunciosActionPerformed
+
+    private void btnEstadoFinancieroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoFinancieroActionPerformed
+        // TODO add your handling code here:
+        Empresa empresa = Empresa.getInstance();
+        JOptionPane.showMessageDialog(rootPane, "Este es el estado financiero actual de la empresa\n"+
+                "Fondos: "+empresa.getFondos()+"\n"+
+                "Ganancias: "+empresa.getGanancias()+"\n"+
+                "Gastos: "+empresa.getGastos(), "Estado financiero", 0);
+        
+    
+    }//GEN-LAST:event_btnEstadoFinancieroActionPerformed
 
     /**
      * @param args the command line arguments
