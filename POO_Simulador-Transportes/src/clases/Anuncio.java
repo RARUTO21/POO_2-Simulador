@@ -56,5 +56,12 @@ public class Anuncio {
     public void reducirDuracion(){
         this.duracionAnuncio -= 1;
     }
+    
+    @Override
+    public String toString(){
+        String res = " Descripcion: " + this.descripcion + "\n Peso del paquete: " + this.pesoPaquete+ "\n Distancia en Km: " + this.distanciaEnKm +
+                            "\n Medio de transporte: " + this.medioTransporte  + "\n Servicio especial: " + this.servicioEspecial + "\n Next day: " + this.nextDay;
+        return res;
+    }
 
 }

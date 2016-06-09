@@ -6,6 +6,8 @@
 package forms;
 
 import clases.Anuncio;
+import clases.Empresa;
+import clases.Vehiculo;
 
 /**
  *
@@ -16,10 +18,20 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     /**
      * Creates new form VentanaCalcularTransporte
      */
-    public VentanaCalcularTransporte(java.awt.Frame parent, boolean modal, Anuncio anuncio) {
+    public VentanaCalcularTransporte(java.awt.Dialog parent, boolean modal, Anuncio anuncio) {
         super(parent, modal);
         this.anuncio = anuncio;
         initComponents();
+        txaAnuncio.setText(anuncio.toString());
+        
+        Empresa.getInstance().getVehiculos().stream().forEach((vehiculo) -> {
+            cBoxVehiculo.addItem(vehiculo.getID());
+        });
+        
+        Empresa.getInstance().getChoferes().stream().forEach((chofer) -> {
+            cBoxVehiculo.addItem(chofer.getNombre());
+        });
+        
     }
 
     /**
@@ -40,27 +52,28 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         btnEstimarT = new javax.swing.JButton();
         btnRealizarT = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        lblAnuncio = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaAnuncio = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Estimación de gastos de transporte");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jLabel2.setText("Seleccione el vehiculo con el que desea realizar el viaje");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
-        jPanel1.add(cBoxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, -1));
+        jPanel1.add(cBoxVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 130, -1));
 
         jLabel3.setText("Seleccione el chofer que hará el viaje");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
-        jPanel1.add(cboxChofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 130, -1));
+        jPanel1.add(cboxChofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, -1));
 
         btnEstimarT.setText("Estimar Transporte");
-        jPanel1.add(btnEstimarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
+        jPanel1.add(btnEstimarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         btnRealizarT.setText("Realizar Transporte");
         btnRealizarT.addActionListener(new java.awt.event.ActionListener() {
@@ -68,13 +81,17 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
                 btnRealizarTActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRealizarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
+        jPanel1.add(btnRealizarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
         jLabel4.setText("Anuncio:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
-        lblAnuncio.setText("Aquí va el anuncio");
-        jPanel1.add(lblAnuncio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        txaAnuncio.setEditable(false);
+        txaAnuncio.setColumns(20);
+        txaAnuncio.setRows(5);
+        jScrollPane1.setViewportView(txaAnuncio);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 480, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +147,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VentanaCalcularTransporte dialog = new VentanaCalcularTransporte(new javax.swing.JFrame(), true,null);
+                VentanaCalcularTransporte dialog = new VentanaCalcularTransporte(new javax.swing.JDialog(), true,null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -152,6 +169,7 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblAnuncio;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txaAnuncio;
     // End of variables declaration//GEN-END:variables
 }

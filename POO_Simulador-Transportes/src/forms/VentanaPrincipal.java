@@ -10,6 +10,7 @@ import clases.Empresa;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -26,6 +27,33 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         //t.start();
         
         initComponents();
+        boolean combustibleIndefinido = true;
+        while(combustibleIndefinido){
+            String precioCombustible = (String) JOptionPane.showInputDialog(null,"Ingrese el precio del litro de combustible", "Precio del combustible", 3, new javax.swing.ImageIcon(getClass().getResource("/iconos/gas.png")),null,null);
+
+            try{
+                Empresa.getInstance().setPrecioXLitroCombustible(Double.parseDouble(precioCombustible));
+                lblPrecioLitroCombustible.setText("Precio del litro de combustible: ₡" + precioCombustible);
+                combustibleIndefinido = false;
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Debe ingresar un monto válido","Precio del litro de combustible no establecido",0);
+            }
+        }
+        
+        boolean montoIndefinido = true;
+        
+        while(montoIndefinido){
+            String fondoInicial = (String) JOptionPane.showInputDialog(null,"Ingrese el fondo incial de la empresa", "Establecer fondo inicial", 3, new javax.swing.ImageIcon(getClass().getResource("/iconos/coins.png")),null,null);
+        
+            try{
+                Empresa.getInstance().setFondos(Double.parseDouble(fondoInicial));
+                montoIndefinido = false;
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Debe ingresar un monto válido","Fondo inicial no establecido",0);
+            }
+        }
         
     }
     
@@ -75,6 +103,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         jLabel1 = new javax.swing.JLabel();
         btnEstadoFinanciero = new javax.swing.JButton();
         lblContador = new javax.swing.JLabel();
+        lblPrecioLitroCombustible = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +115,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         });
 
         btnChoferes.setText("Choferes");
+        btnChoferes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChoferesActionPerformed(evt);
+            }
+        });
 
         Anuncios.setText("Anuncios");
         Anuncios.addActionListener(new java.awt.event.ActionListener() {
@@ -101,14 +135,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
 
         lblContador.setText("jLabel2");
 
+        lblPrecioLitroCombustible.setText("Precio del litro de combustible: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(btnEstadoFinanciero)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -117,32 +149,39 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                                 .addGap(54, 54, 54)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(161, 161, 161)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnChoferes)
-                                    .addComponent(btnVehiculos)
-                                    .addComponent(Anuncios))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(lblPrecioLitroCombustible)))
+                        .addGap(0, 31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblContador)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Anuncios)
+                    .addComponent(btnChoferes)
+                    .addComponent(btnVehiculos)
+                    .addComponent(btnEstadoFinanciero))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(lblContador)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVehiculos)
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
                 .addComponent(btnChoferes)
-                .addGap(29, 29, 29)
+                .addGap(36, 36, 36)
                 .addComponent(Anuncios)
-                .addGap(30, 30, 30)
+                .addGap(29, 29, 29)
                 .addComponent(btnEstadoFinanciero)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(lblContador)
+                .addComponent(lblPrecioLitroCombustible)
                 .addContainerGap())
         );
 
@@ -161,6 +200,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         ventana.setVisible(true);
         
     }//GEN-LAST:event_AnunciosActionPerformed
+
+    private void btnChoferesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoferesActionPerformed
+        // TODO add your handling code here:
+        (new VentanaChoferes(this,true)).setVisible(true);
+    }//GEN-LAST:event_btnChoferesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +248,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton btnVehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblContador;
+    private javax.swing.JLabel lblPrecioLitroCombustible;
     // End of variables declaration//GEN-END:variables
 }
 
