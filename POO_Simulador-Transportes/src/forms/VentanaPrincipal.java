@@ -70,6 +70,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         });
 
         btnChoferes.setText("Choferes");
+        btnChoferes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChoferesActionPerformed(evt);
+            }
+        });
 
         Anuncios.setText("Anuncios");
 
@@ -127,6 +132,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
     private void btnVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVehiculosActionPerformed
+
+    private void btnChoferesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoferesActionPerformed
+        new VentanaChoferes(null, true).setVisible(true);
+        
+    }//GEN-LAST:event_btnChoferesActionPerformed
 
     /**
      * @param args the command line arguments

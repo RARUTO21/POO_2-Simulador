@@ -102,6 +102,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TextNombreChofer">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextNombreChoferActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="LabLicencia">
       <Properties>

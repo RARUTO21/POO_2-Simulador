@@ -7,6 +7,7 @@ package forms;
 
 import clases.Empresa;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,8 +22,26 @@ private Empresa empresa = Empresa.getInstance();
     public VentanaChoferes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        licenciasTable.setDefaultEditor(Object.class, null);
+        actualizarValoresTablaLicencias();
+        
+       
+        
+        
+        
     }
-
+    
+    private void actualizarValoresTablaLicencias(){
+    DefaultTableModel modeloLicencias = (DefaultTableModel)licenciasTable.getModel();
+        //modeloLicencias.setColumnCount(7);
+        
+        //modeloLicencias.setColumnIdentifiers(new Object[]{"Nombre","Moto", "Carro", "Avion","Helicoptero","Ferry","Barco"});
+        modeloLicencias.setRowCount(0);
+        empresa.getChoferes().stream().forEach((chofer)->{
+            modeloLicencias.addRow(new Object[]{chofer.getNombre(), chofer.obtenerLicencias().get(0), chofer.obtenerLicencias().get(1), chofer.obtenerLicencias().get(2), chofer.obtenerLicencias().get(3), chofer.obtenerLicencias().get(4), chofer.obtenerLicencias().get(5)});
+        });
+        licenciasTable.setModel(modeloLicencias);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +54,8 @@ private Empresa empresa = Empresa.getInstance();
         labChoferes = new javax.swing.JLabel();
         btnContratarChofer = new javax.swing.JButton();
         btnCapacitarChofer = new javax.swing.JButton();
-        btnVerChofer = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        licenciasTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,8 +69,36 @@ private Empresa empresa = Empresa.getInstance();
         });
 
         btnCapacitarChofer.setText("Capacitar Chofer");
+        btnCapacitarChofer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapacitarChoferActionPerformed(evt);
+            }
+        });
 
-        btnVerChofer.setText("Ver Choferes");
+        licenciasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Moto", "Carro", "Avion", "Helicoptero", "Ferry", "Barco"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(licenciasTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,31 +106,31 @@ private Empresa empresa = Empresa.getInstance();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnContratarChofer))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnVerChofer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCapacitarChofer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(labChoferes, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                    .addComponent(btnCapacitarChofer)
+                    .addComponent(btnContratarChofer, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(labChoferes, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(216, 216, 216))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(labChoferes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnContratarChofer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCapacitarChofer)
-                .addGap(26, 26, 26)
-                .addComponent(btnVerChofer)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(btnContratarChofer)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCapacitarChofer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -90,7 +138,12 @@ private Empresa empresa = Empresa.getInstance();
 
     private void btnContratarChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratarChoferActionPerformed
        new ContratarChofer(null, true).setVisible(true);
+       actualizarValoresTablaLicencias();
     }//GEN-LAST:event_btnContratarChoferActionPerformed
+
+    private void btnCapacitarChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapacitarChoferActionPerformed
+        new CapacitarChofer(null, true).setVisible(true);
+    }//GEN-LAST:event_btnCapacitarChoferActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,8 +190,9 @@ private Empresa empresa = Empresa.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapacitarChofer;
     private javax.swing.JButton btnContratarChofer;
-    private javax.swing.JButton btnVerChofer;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labChoferes;
+    private javax.swing.JTable licenciasTable;
     // End of variables declaration//GEN-END:variables
 }
 

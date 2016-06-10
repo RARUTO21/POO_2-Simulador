@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Empresa {
     private static Empresa instance;
-    private double fondos;
+    private double fondos = 100;
     private double precioXLitroCombustible;
     private double gastos;
     private double ganancias;
@@ -46,9 +46,9 @@ public class Empresa {
        
     }
 
-    public void capacitarChofer(Chofer chofer, int tipoLicencia) {
+    public void capacitarChofer(int chofer, int tipoLicencia) {
         // TODO implement here
-        choferes.get(choferes.indexOf(chofer)).agregarLicencia(tipoLicencia);
+        choferes.get(chofer).agregarLicencia(tipoLicencia);
     }
 
     public ArrayList<Chofer> getChoferes() {

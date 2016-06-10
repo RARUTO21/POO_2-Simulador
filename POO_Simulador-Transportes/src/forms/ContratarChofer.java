@@ -48,6 +48,12 @@ private Empresa empresa = Empresa.getInstance();
 
         LabNombreChofer.setText("Nombre: ");
 
+        TextNombreChofer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextNombreChoferActionPerformed(evt);
+            }
+        });
+
         LabLicencia.setText("Tipo de licencia");
 
         BoxLicencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Moto", "Carro", "Avión", "Helicoptero", "Ferry", "Barco" }));
@@ -133,24 +139,33 @@ private Empresa empresa = Empresa.getInstance();
 
             try{
                 costoContratacion = Double.parseDouble(textCostoContratacion.getText());
-            }
-            catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad valida");
-            }
-            if ( costoContratacion <= empresa.getFondos()){
+                if ( costoContratacion <= empresa.getFondos()){
                 //si se puede contratar             
                 empresa.contratarChofer(TextNombreChofer.getText(), BoxLicencia.getSelectedIndex(), costoContratacion);
                  JOptionPane.showMessageDialog(null, "Se contrató el chofer exitosamente");
                 this.dispose();//cerrar la ventana
             }else{
+                
                 JOptionPane.showMessageDialog(null, "Fondos insuficientes para realizar la contratación");
+                this.dispose();
+                
             }
+            }
+            catch (Exception ex){
+                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad valida");
+        
+            }
+            
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void BoxLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoxLicenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BoxLicenciaActionPerformed
+
+    private void TextNombreChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextNombreChoferActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextNombreChoferActionPerformed
 
     /**
      * @param args the command line arguments
