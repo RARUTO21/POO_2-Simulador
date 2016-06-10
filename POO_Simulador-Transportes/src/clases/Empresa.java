@@ -87,6 +87,7 @@ public class Empresa {
         // TODO implement here
         fondos -= precio;
         vehiculos.add(vehiculo);
+        gastos += precio; 
 
     }
 
