@@ -14,8 +14,8 @@ public class Anuncio {
     
     private Random random;
 
-    public Anuncio(String descripcion, int pesoPaquete, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
-        int tiempoRandom = random.nextInt((90 - 30) + 1) + 30;
+    public Anuncio(String descripcion, double pesoPaquete, int distanciaEnKm, String medioTransporte, boolean servicioEspecial, boolean nextDay) {
+        int tiempoRandom = (int)(Math.random() * 90 );
         duracionAnuncio = tiempoRandom;
         this.descripcion = descripcion;
         this.pesoPaquete = pesoPaquete;
@@ -47,6 +47,21 @@ public class Anuncio {
 
     public boolean getNextDay() {
         return this.nextDay;
+    }
+    
+    public String getMedioTransporte(){
+        return this.medioTransporte;
+    }
+    
+    public void reducirDuracion(){
+        this.duracionAnuncio -= 1;
+    }
+    
+    @Override
+    public String toString(){
+        String res = " Descripcion: " + this.descripcion + "\n Peso del paquete: " + this.pesoPaquete+ "\n Distancia en Km: " + this.distanciaEnKm +
+                            "\n Medio de transporte: " + this.medioTransporte  + "\n Servicio especial: " + this.servicioEspecial + "\n Next day: " + this.nextDay;
+        return res;
     }
 
 }

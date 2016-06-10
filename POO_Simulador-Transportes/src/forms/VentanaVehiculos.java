@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package forms;
+
 import clases.Empresa;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
@@ -15,34 +18,32 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaVehiculos extends javax.swing.JDialog {
 
-   private Empresa empresa = Empresa.getInstance();
+    private Empresa empresa = Empresa.getInstance();
+
     /**
      * Creates new form VentanaVehiculos
      */
     public VentanaVehiculos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tblVehiculos.setDefaultEditor(Object.class,null);
+        tblVehiculos.setDefaultEditor(Object.class, null);
         actualizarValoresTablaVehiculos();
     }
-    
-    private void actualizarValoresTablaVehiculos(){
+
+    private void actualizarValoresTablaVehiculos() {
         btnDarMantenimiento.setEnabled(false);
         btnRepararVehiculo.setEnabled(false);
 
-        DefaultTableModel modelo = (DefaultTableModel) tblVehiculos.getModel();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(3);
+
+        modelo.setColumnIdentifiers(new Object[]{"ID", "Capacidad Maxima", "Vida Util"});
 
         empresa.getVehiculos().stream().forEach((vehiculo) -> {
-            modelo.addRow(new Object[]{vehiculo.getID(),vehiculo.getCapacidadCargaDisponibles(),vehiculo.getVidaUtil()});
+            modelo.addRow(new Object[]{vehiculo.getID(), vehiculo.getCapacidadCargaDisponibles(), vehiculo.getVidaUtil()});
         });
+        tblVehiculos.setModel(modelo);
     }
-    
-    private void tblVehiculosMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        // TODO add your handling code here:
-        btnDarMantenimiento.setEnabled(true);
-        btnRepararVehiculo.setEnabled(true);
-    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +88,14 @@ public class VentanaVehiculos extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVehiculosMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblVehiculosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVehiculos);
         if (tblVehiculos.getColumnModel().getColumnCount() > 0) {
             tblVehiculos.getColumnModel().getColumn(0).setResizable(false);
@@ -109,6 +118,11 @@ public class VentanaVehiculos extends javax.swing.JDialog {
         });
 
         btnDarMantenimiento.setText("Dar mantenimiento ");
+        btnDarMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarMantenimientoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,10 +169,10 @@ public class VentanaVehiculos extends javax.swing.JDialog {
 
     private void btnComprarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarVehiculoActionPerformed
         // TODO add your handling code here:
-        if(empresa.getFondos()!=0){
-            new ComprarVehiculo(null,true).setVisible(true);
-        }
-        else{
+        if (empresa.getFondos() != 0) {
+            new ComprarVehiculo(null, true).setVisible(true);
+            actualizarValoresTablaVehiculos();
+        } else {
             JOptionPane.showMessageDialog(rootPane, "No tiene fondos en la empresa");
         }
     }//GEN-LAST:event_btnComprarVehiculoActionPerformed
@@ -166,7 +180,47 @@ public class VentanaVehiculos extends javax.swing.JDialog {
     private void btnRepararVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepararVehiculoActionPerformed
         // TODO add your handling code here:
         double costoReparacion = Double.parseDouble(JOptionPane.showInputDialog(rootPane, "Ingrese el monto de reparacion", null, 1));
+        if (costoReparacion < empresa.getFondos()) {
+            empresa.repararVehiculo(costoReparacion);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No tiene suficientes fondos en la empresa");
+        }
     }//GEN-LAST:event_btnRepararVehiculoActionPerformed
+
+    private void btnDarMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarMantenimientoActionPerformed
+        // TODO add your handling code here:
+        if(empresa.getVehiculos().get(tblVehiculos.getSelectedRow()).vidautilIsMax() == false){
+            double costoMantenimiento = Double.parseDouble(JOptionPane.showInputDialog(rootPane, "Ingrese el monto de reparacion", null, 1));
+            if(costoMantenimiento<empresa.getFondos()){
+                try {
+                    empresa.darMantenimientoAVehiculo(tblVehiculos.getSelectedRow(), costoMantenimiento);
+                } catch (Exception ex) {
+                    Logger.getLogger(VentanaVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No tiene suficientes fondos en la empresa");
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "La vida util del vehiculo esta al maximo");
+        }
+            
+            
+            
+            
+
+    }//GEN-LAST:event_btnDarMantenimientoActionPerformed
+
+    private void tblVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMouseClicked
+        // TODO add your handling code here:
+        btnDarMantenimiento.setEnabled(true);
+        btnRepararVehiculo.setEnabled(true);
+    }//GEN-LAST:event_tblVehiculosMouseClicked
+
+    private void tblVehiculosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVehiculosMousePressed
+        // TODO add your handling code here:
+        btnDarMantenimiento.setEnabled(true);
+        btnRepararVehiculo.setEnabled(true);
+    }//GEN-LAST:event_tblVehiculosMousePressed
 
     /**
      * @param args the command line arguments

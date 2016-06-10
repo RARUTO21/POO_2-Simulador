@@ -13,6 +13,7 @@ public class Carro extends Vehiculo {
     
     public Carro() {
         super(40,"CAR",530.0);
+        super.tipoVehiculo = "Terrestre";
     }
 
     /**
@@ -24,10 +25,6 @@ public class Carro extends Vehiculo {
         // TODO implement here
         return cantKm*3.9;
     }
-    
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
+
 
 }

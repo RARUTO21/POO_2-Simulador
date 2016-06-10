@@ -33,29 +33,10 @@ public class CapacitarChofer extends javax.swing.JDialog {
         }
     }
 
-    ////OJO seguir
+   
     public void actualizarLabel(int indice) {
-        switch (indice) {
-            case 0:
-                labCostoCapacitacion.setText("10");
-                break;
-            case 1:
-                labCostoCapacitacion.setText("20");
-                break;
-            case 2:
-                labCostoCapacitacion.setText("30");
-                break;
-            case 3:
-                labCostoCapacitacion.setText("40");
-                break;
-            case 4:
-                labCostoCapacitacion.setText("50");
-                break;
-            case 5:
-                labCostoCapacitacion.setText("60");
-                break;
-                
-        }
+        labCostoCapacitacion.setText(""+empresa.getCostoCapacitacion().get(indice));
+              
     }
 
     /**
@@ -98,6 +79,16 @@ public class CapacitarChofer extends javax.swing.JDialog {
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 boxTipoLicenciaMousePressed(evt);
+            }
+        });
+        boxTipoLicencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxTipoLicenciaActionPerformed(evt);
+            }
+        });
+        boxTipoLicencia.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                boxTipoLicenciaPropertyChange(evt);
             }
         });
 
@@ -171,11 +162,8 @@ public class CapacitarChofer extends javax.swing.JDialog {
     }//GEN-LAST:event_boxChoferesCapacitarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //Costo por capacitacion de cadalicencia 
-        //hacer un switch con los vehiculos 
-        //el valor del combobox.getselectecItem de licencia 
-        // if 1hacer settext al label 
-        empresa.capacitarChofer(boxChoferesCapacitar.getSelectedIndex(), boxTipoLicencia.getSelectedIndex());
+       
+        empresa.capacitarChofer(boxChoferesCapacitar.getSelectedIndex(), boxTipoLicencia.getSelectedIndex(),empresa.getCostoCapacitacion().get(boxTipoLicencia.getSelectedIndex()));
         JOptionPane.showMessageDialog(null, "Se capacitó el chofer exitosamente");
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -189,6 +177,14 @@ public class CapacitarChofer extends javax.swing.JDialog {
     private void boxTipoLicenciaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boxTipoLicenciaMousePressed
         actualizarLabel(boxTipoLicencia.getSelectedIndex());
     }//GEN-LAST:event_boxTipoLicenciaMousePressed
+
+    private void boxTipoLicenciaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_boxTipoLicenciaPropertyChange
+        actualizarLabel(boxTipoLicencia.getSelectedIndex());
+    }//GEN-LAST:event_boxTipoLicenciaPropertyChange
+
+    private void boxTipoLicenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxTipoLicenciaActionPerformed
+        actualizarLabel(boxTipoLicencia.getSelectedIndex());
+    }//GEN-LAST:event_boxTipoLicenciaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,9 +5,13 @@
  */
 package forms;
 
+import clases.Anuncio;
+import clases.Empresa;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 
@@ -24,17 +28,92 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         //t.start();
         
         initComponents();
+        boolean combustibleIndefinido = true;
+        while(combustibleIndefinido){
+            System.out.println("entro al hilo");
+            String precioCombustible = (String) JOptionPane.showInputDialog(null,"Ingrese el precio del litro de combustible", "Precio del combustible", 3);
+
+            try{
+                Empresa.getInstance().setPrecioXLitroCombustible(Double.parseDouble(precioCombustible));
+                lblPrecioLitroCombustible.setText("Precio del litro de combustible: ₡" + precioCombustible);
+                combustibleIndefinido = false;
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Debe ingresar un monto válido","Precio del litro de combustible no establecido",0);
+            }
+
+        }
         
+        
+        
+        boolean montoIndefinido = true;
+        
+        while(montoIndefinido){
+            String fondoInicial = (String) JOptionPane.showInputDialog(null,"Ingrese el fondo incial de la empresa", "Establecer fondo inicial", 3, new javax.swing.ImageIcon(getClass().getResource("/iconos/coins.png")),null,null);
+        
+            try{
+                Empresa.getInstance().setFondos(Double.parseDouble(fondoInicial));
+                montoIndefinido = false;
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Debe ingresar un monto válido","Fondo inicial no establecido",0);
+            }
+        }
+       ArrayList <String> licencias = new ArrayList();
+       licencias.add("Moto");
+       licencias.add("Carro");
+       licencias.add("Avion");
+       licencias.add("Helicoptero");
+       licencias.add("Ferry");
+       licencias.add("Barco");
+       
+       ArrayList<Double> costoCapacitacion = new ArrayList(); 
+       for(int i =0; i < 6;i++){ 
+           boolean montoCapacitacion = true;
+           
+        while(montoCapacitacion){           
+        
+            try{
+                double costo = Double.parseDouble((String) JOptionPane.showInputDialog(null,"Costo de capacitación para: " + licencias.get(i), "Establecer costo de capacitación", 3, new javax.swing.ImageIcon(getClass().getResource("/iconos/coins.png")),null,null));
+                montoCapacitacion = false;
+                costoCapacitacion.add(costo);
+            }
+            catch(Exception e){
+                System.out.println("Entra al catch");
+                JOptionPane.showMessageDialog(null,"Debe ingresar un monto válido","Error, verifique el monto ingresado",0);
+            }
+        }
+         
     }
+       Empresa.getInstance().setCostoCapacitacion(costoCapacitacion);
+  }
+    
+    
+    
+
     
     @Override
     public void run(){
         
         int counter = 0;
         while(true){
-            System.out.println("Hola Mundo! Desde ventanaPri");
+            System.out.println(counter);
             lblContador.setText(Calendar.getInstance().getTime().toString());//Integer.toString(counter));
             counter++;
+            
+            for(int i = 0; i < Empresa.getInstance().getAnuncios().size(); i++){
+                
+                Empresa.getInstance().getAnuncios().get(i).reducirDuracion();
+                
+                if(Empresa.getInstance().getAnuncios().get(i).getDuracionAnuncio() == 0){
+                    Empresa.getInstance().getAnuncios().remove(i);
+                }
+            }
+            
+            if(counter%5 == 0){
+                Empresa.getInstance().generarAnuncio(); 
+            }
+            
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
@@ -57,8 +136,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         btnChoferes = new javax.swing.JButton();
         Anuncios = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnEstadoFinanciero = new javax.swing.JButton();
         lblContador = new javax.swing.JLabel();
+        lblPrecioLitroCombustible = new javax.swing.JLabel();
+        btnEstadoFinanciero = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,13 +157,25 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         });
 
         Anuncios.setText("Anuncios");
+        Anuncios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnunciosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Simulador de Transportes");
 
-        btnEstadoFinanciero.setText("Estado financiero");
-
         lblContador.setText("jLabel2");
+
+        lblPrecioLitroCombustible.setText("Precio del litro de combustible: ");
+
+        btnEstadoFinanciero.setText("Estado Financiero");
+        btnEstadoFinanciero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstadoFinancieroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,38 +184,45 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChoferes)
-                            .addComponent(btnVehiculos)
-                            .addComponent(Anuncios))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblPrecioLitroCombustible)))
+                        .addGap(0, 31, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblContador)
+                        .addGap(20, 20, 20)))
+                .addGap(10, 10, 10))
             .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(btnEstadoFinanciero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblContador)
-                .addGap(22, 22, 22))
+                .addGap(174, 174, 174)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnChoferes)
+                    .addComponent(Anuncios)
+                    .addComponent(btnEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVehiculos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(lblContador)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVehiculos)
-                .addGap(40, 40, 40)
+                .addGap(43, 43, 43)
                 .addComponent(btnChoferes)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(Anuncios)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEstadoFinanciero)
-                    .addComponent(lblContador))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(btnEstadoFinanciero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(lblPrecioLitroCombustible)
+                .addContainerGap())
         );
 
         pack();
@@ -131,12 +230,28 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void btnVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVehiculosActionPerformed
         // TODO add your handling code here:
+        new VentanaVehiculos(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_btnVehiculosActionPerformed
 
+
+    private void AnunciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnunciosActionPerformed
+        // TODO add your handling code here:
+       new VentanaAnuncios(this,true).setVisible(true);
+    }//GEN-LAST:event_AnunciosActionPerformed
+
     private void btnChoferesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoferesActionPerformed
-        new VentanaChoferes(null, true).setVisible(true);
-        
+        // TODO add your handling code here:
+        (new VentanaChoferes(this,true)).setVisible(true);
+
     }//GEN-LAST:event_btnChoferesActionPerformed
+
+    private void btnEstadoFinancieroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoFinancieroActionPerformed
+       Empresa empresa = Empresa.getInstance();
+        JOptionPane.showMessageDialog(rootPane, "Este es el estado financiero actual de la empresa\n"+
+                "Fondos: "+empresa.getFondos()+"\n"+
+                "Ganancias: "+empresa.getGanancias()+"\n"+
+                "Gastos: "+empresa.getGastos(), "Estado financiero", 0);
+    }//GEN-LAST:event_btnEstadoFinancieroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +295,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton btnVehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblContador;
+    private javax.swing.JLabel lblPrecioLitroCombustible;
     // End of variables declaration//GEN-END:variables
 }
 

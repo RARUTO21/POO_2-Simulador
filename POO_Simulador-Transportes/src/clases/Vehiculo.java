@@ -1,10 +1,14 @@
 package clases;
+
+import java.util.ArrayList;
+
 /**
  * 
  */
 public abstract class Vehiculo {
     protected double capacidadCargaDisponible;
     protected int vidaUtil;
+    protected String tipoVehiculo;
     private final String id;
     private static int contadorID;
     
@@ -19,8 +23,12 @@ public abstract class Vehiculo {
         contadorID++;
         
         this.maxVidaUtil = vidaUtil;
+        
     }
+
     
+    
+   
     public String getID() {
         return id;
     }
@@ -32,15 +40,20 @@ public abstract class Vehiculo {
     public int getVidaUtil() {
         return vidaUtil;
     }
+    
+    public boolean vidautilIsMax(){
+        return vidaUtil==maxVidaUtil;
+    }
 
     abstract public double calcularLitrosCombustibleXKm(int cantKm);
     
-    abstract public void reparar();
     
     public void darMantenimiento(){
         this.vidaUtil = this.maxVidaUtil;
     }
     
-    
+    public String getTipoVehiculo(){
+        return this.tipoVehiculo;
+    }
 
 }

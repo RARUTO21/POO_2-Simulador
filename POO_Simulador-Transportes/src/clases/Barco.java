@@ -7,6 +7,7 @@ public class Barco extends Vehiculo {
      */
     public Barco() {
         super(30,"BRC",3200.0);
+        super.tipoVehiculo = "Marino";
     }
     
     @Override
@@ -14,9 +15,5 @@ public class Barco extends Vehiculo {
         return cantKm*9.06;
     }
 
-    @Override
-    public void reparar(){
-        super.vidaUtil = (int) super.vidaUtil / 5;
-    }
     
 }
