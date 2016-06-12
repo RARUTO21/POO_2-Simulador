@@ -188,8 +188,12 @@ public class Empresa {
         return datos;
     }
 
-    public void realizarTransporte(Chofer chofer, Vehiculo vehiculo, Anuncio anuncio) {
+    public void realizarTransporte(double costo, double ganancia) {
         //FALTA
+        
+        fondos += ganancia-costo;
+        ganancias = ganancia;
+        gastos += costo;
     }
 
     public void setGastos(double gastos) {

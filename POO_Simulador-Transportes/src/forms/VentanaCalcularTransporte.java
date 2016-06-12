@@ -126,6 +126,33 @@ public class VentanaCalcularTransporte extends javax.swing.JDialog {
 
     private void btnRealizarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarTActionPerformed
         // TODO add your handling code here:
+        try {
+            if(verificarVehiculo()){
+                if(verificarChofer()){
+                    try {
+                        double costo = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(0);
+                        double ganancia = Empresa.getInstance().estimarCostosDeTransporte(Empresa.getInstance().getChoferes().get(cBoxChoferes.getSelectedIndex()), Empresa.getInstance().getVehiculos().get(cBoxVehiculo.getSelectedIndex()), anuncio).get(1);
+                        
+                        String texto = "Fondo actual: " + Empresa.getInstance().getFondos() +"\n\nCostos de transporte: " +  costo + "\nGanancias de transporte: " +  ganancia +  "\n\nFondo posterior al transporte: " + (Empresa.getInstance().getFondos() + (ganancia-costo));
+                        
+                        int opcion = JOptionPane.showConfirmDialog(null, texto, "Realizar transporte",1);
+                        if(opcion == 0){
+                            Empresa.getInstance().realizarTransporte(costo, ganancia);
+                            JOptionPane.showMessageDialog(null, "El transporte del producto se ha realizado con exito", "Realizar transporte",1);
+                            this.dispose();
+                        }
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(VentanaCalcularTransporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"El chofer no está capacitado para manejar el vehículo seleccionado.","Error al seleccionar chofer",0);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error al seleccionar vehículo",0);
+        }
     }//GEN-LAST:event_btnRealizarTActionPerformed
 
     private boolean verificarVehiculo() throws Exception{

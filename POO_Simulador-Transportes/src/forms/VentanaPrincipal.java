@@ -28,6 +28,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         //t.start();
         
         initComponents();
+        
         boolean combustibleIndefinido = true;
         while(combustibleIndefinido){
             System.out.println("entro al hilo");
@@ -139,8 +140,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
         lblContador = new javax.swing.JLabel();
         lblPrecioLitroCombustible = new javax.swing.JLabel();
         btnEstadoFinanciero = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnVehiculos.setText("Vehículos");
         btnVehiculos.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +151,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 btnVehiculosActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVehiculos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, -1, -1));
 
         btnChoferes.setText("Choferes");
         btnChoferes.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +159,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 btnChoferesActionPerformed(evt);
             }
         });
+        getContentPane().add(btnChoferes, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, -1, -1));
 
         Anuncios.setText("Anuncios");
         Anuncios.addActionListener(new java.awt.event.ActionListener() {
@@ -162,13 +167,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 AnunciosActionPerformed(evt);
             }
         });
+        getContentPane().add(Anuncios, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 51));
         jLabel1.setText("Simulador de Transportes");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 336, 37));
 
         lblContador.setText("jLabel2");
+        getContentPane().add(lblContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, -1, -1));
 
         lblPrecioLitroCombustible.setText("Precio del litro de combustible: ");
+        getContentPane().add(lblPrecioLitroCombustible, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         btnEstadoFinanciero.setText("Estado Financiero");
         btnEstadoFinanciero.addActionListener(new java.awt.event.ActionListener() {
@@ -176,54 +186,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
                 btnEstadoFinancieroActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEstadoFinanciero, new org.netbeans.lib.awtextra.AbsoluteConstraints(383, 320, 170, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblPrecioLitroCombustible)))
-                        .addGap(0, 31, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblContador)
-                        .addGap(20, 20, 20)))
-                .addGap(10, 10, 10))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnChoferes)
-                    .addComponent(Anuncios)
-                    .addComponent(btnEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVehiculos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblContador)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnVehiculos)
-                .addGap(43, 43, 43)
-                .addComponent(btnChoferes)
-                .addGap(18, 18, 18)
-                .addComponent(Anuncios)
-                .addGap(27, 27, 27)
-                .addComponent(btnEstadoFinanciero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(lblPrecioLitroCombustible)
-                .addContainerGap())
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/FondoDePantalla.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -294,6 +260,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JButton btnEstadoFinanciero;
     private javax.swing.JButton btnVehiculos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblContador;
     private javax.swing.JLabel lblPrecioLitroCombustible;
     // End of variables declaration//GEN-END:variables
